@@ -215,6 +215,8 @@ if [[ -z "$DT_URL" ]]; then
   echo ""
   echo -e "  ${BOLD}Enter your Dynatrace environment URL${NC}"
   echo -e "  ${CYAN}(e.g. https://abc12345.live.dynatrace.com)${NC}"
+  echo -e "  ${CYAN}(sprint example: https://abc12345.sprint.dynatracelabs.com)${NC}"
+  echo -e "  ${CYAN}(apps URLs are also accepted and auto-normalized)${NC}"
   read -rp "  → " DT_URL
 fi
 
@@ -223,6 +225,11 @@ if [[ -z "$DT_URL" ]]; then
 else
   # Clean up URL
   DT_URL="${DT_URL%/}"
+
+  # Normalize: if user entered an apps URL, convert to environment URL
+  # e.g. https://abc123.sprint.apps.dynatracelabs.com → https://abc123.sprint.dynatracelabs.com
+  # e.g. https://abc123.apps.dynatrace.com → https://abc123.dynatrace.com
+  DT_URL=$(echo "$DT_URL" | sed 's|\.apps\.|.|')
 
   # Derive tenant ID from URL
   DT_TENANT_ID=$(echo "$DT_URL" | sed -E 's|https?://||' | cut -d. -f1)
