@@ -11,6 +11,7 @@
 #                   --otel-token dt0c01.YYY
 #
 #  This script handles everything:
+#    0. Pre-flight checks (disk space, git, Docker)
 #    1. Checks Node.js (installs if missing)
 #    2. Installs Ollama + pulls the LLM model (or skip with --skip-ollama)
 #    3. Runs npm install + TypeScript build
@@ -19,6 +20,7 @@
 #    6. Starts the server with OpenTelemetry instrumentation
 #    7. (Optional) Deploys the Dynatrace AppEngine UI
 #    8. (Optional) Sets up EdgeConnect Docker tunnel
+#    9. (Optional) Installs Dynatrace OneAgent for full-stack monitoring
 #
 # ============================================================
 
@@ -35,7 +37,7 @@ CYAN='\033[0;36m'
 BOLD='\033[1m'
 NC='\033[0m'
 
-TOTAL_STEPS=8
+TOTAL_STEPS=9
 step() { echo -e "\n${CYAN}${BOLD}[$1/$TOTAL_STEPS]${NC} ${BOLD}$2${NC}"; }
 ok()   { echo -e "  ${GREEN}✅ $1${NC}"; }
 warn() { echo -e "  ${YELLOW}⚠️  $1${NC}"; }
@@ -55,6 +57,7 @@ EC_RESOURCE=""
 SKIP_APPENGINE=""
 SKIP_EDGECONNECT=""
 SKIP_OLLAMA=""
+SKIP_ONEAGENT=""
 
 while [[ $# -gt 0 ]]; do
   case $1 in
@@ -71,6 +74,7 @@ while [[ $# -gt 0 ]]; do
     --skip-appengine)   SKIP_APPENGINE=1; shift ;;
     --skip-edgeconnect) SKIP_EDGECONNECT=1; shift ;;
     --skip-ollama)      SKIP_OLLAMA=1; shift ;;
+    --skip-oneagent)    SKIP_ONEAGENT=1; shift ;;
     -h|--help)
       echo "Usage: bash deploy.sh [OPTIONS]"
       echo ""
@@ -87,6 +91,7 @@ while [[ $# -gt 0 ]]; do
       echo "  --skip-appengine          Skip Dynatrace AppEngine UI deployment"
       echo "  --skip-edgeconnect        Skip EdgeConnect Docker setup"
       echo "  --skip-ollama             Skip Ollama install (Lite mode — rule-based AI fallbacks)"
+      echo "  --skip-oneagent           Skip Dynatrace OneAgent installation"
       echo ""
       echo "If credentials are not passed via CLI, the script will prompt for them."
       exit 0
@@ -107,6 +112,40 @@ echo "╠═══════════════════════�
 echo "║  Server + OTel + Ollama AI + AppEngine UI + EdgeConnect  ║"
 echo "╚══════════════════════════════════════════════════════════╝"
 echo -e "${NC}"
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Pre-flight checks
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+echo -e "${BOLD}Pre-flight checks${NC}"
+
+# Check disk space (need at least 5GB free, 10GB recommended)
+AVAIL_MB=$(df -m / | awk 'NR==2 {print $4}')
+AVAIL_GB=$(( AVAIL_MB / 1024 ))
+if [[ "$AVAIL_MB" -lt 2048 ]]; then
+  fail "Only ${AVAIL_GB}GB free disk space. Need at least 5GB (10GB+ recommended).\n  Resize your volume: AWS Console → EC2 → Volumes → Modify Volume → 30GB\n  Then run: sudo growpart /dev/nvme0n1 1 && sudo xfs_growfs /"
+elif [[ "$AVAIL_MB" -lt 5120 ]]; then
+  warn "${AVAIL_GB}GB free — tight. 10GB+ recommended (resize volume to 30GB)"
+else
+  ok "${AVAIL_GB}GB free disk space"
+fi
+
+# Check git
+if command -v git &>/dev/null; then
+  ok "git $(git --version | awk '{print $3}')"
+else
+  echo "  Installing git..."
+  sudo yum install -y git 2>/dev/null || sudo apt-get install -y git 2>/dev/null
+  ok "git installed"
+fi
+
+# Check Docker (needed for EdgeConnect)
+if [[ -z "$SKIP_EDGECONNECT" ]]; then
+  if command -v docker &>/dev/null; then
+    ok "Docker available"
+  else
+    warn "Docker not installed — will install in Step 8 if EdgeConnect is configured"
+  fi
+fi
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # Step 1: Node.js
@@ -513,6 +552,53 @@ ECEOF
       ok "EdgeConnect running — Dynatrace UI can now reach this server"
     else
       warn "EdgeConnect container may have issues. Check: sudo docker logs $CONTAINER_NAME"
+    fi
+  fi
+fi
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Step 9: Dynatrace OneAgent (full-stack monitoring)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+step 9 "Dynatrace OneAgent (full-stack monitoring)"
+
+if [[ -n "$SKIP_ONEAGENT" ]]; then
+  warn "Skipped (--skip-oneagent flag)"
+elif [[ -z "$DT_URL" ]]; then
+  warn "Skipped — no Dynatrace URL configured"
+elif [[ -f /opt/dynatrace/oneagent/agent/lib64/liboneagentproc.so ]]; then
+  ok "OneAgent already installed"
+else
+  echo ""
+  echo -e "  ${BOLD}OneAgent provides full-stack monitoring (processes, host metrics, logs).${NC}"
+  echo -e "  ${CYAN}Get the installer command from Dynatrace:${NC}"
+  echo -e "  ${CYAN}  Deploy Dynatrace → Start installation → Linux${NC}"
+  echo -e "  ${CYAN}(or enter 'skip' to skip OneAgent)${NC}"
+  echo ""
+  echo -e "  ${BOLD}Paste the OneAgent download URL${NC}"
+  echo -e "  ${CYAN}(looks like: https://TENANT.dynatrace.com/api/v1/deployment/installer/agent/unix/default/latest?...)${NC}"
+  read -rp "  → " OA_URL
+
+  if [[ "$OA_URL" == "skip" || -z "$OA_URL" ]]; then
+    warn "OneAgent skipped — install later from Dynatrace → Deploy"
+  else
+    # Check disk space for OneAgent (~1.6GB)
+    AVAIL_MB_OA=$(df -m / | awk 'NR==2 {print $4}')
+    if [[ "$AVAIL_MB_OA" -lt 2048 ]]; then
+      warn "Only $((AVAIL_MB_OA / 1024))GB free — OneAgent needs ~1.6GB. Resize volume first."
+    else
+      echo "  Downloading OneAgent..."
+      OA_INSTALLER="/tmp/dynatrace-oneagent.sh"
+      if curl -fsSL -o "$OA_INSTALLER" "$OA_URL"; then
+        echo "  Installing OneAgent (this may take a minute)..."
+        if sudo /bin/sh "$OA_INSTALLER" --set-monitoring-mode=fullstack --set-app-log-content-access=true 2>&1 | tail -5; then
+          ok "OneAgent installed — host will appear in Dynatrace within 2 minutes"
+        else
+          warn "OneAgent install had issues. Check: /var/log/dynatrace/oneagent/installer/"
+        fi
+        rm -f "$OA_INSTALLER"
+      else
+        warn "Failed to download OneAgent — check the URL and try again"
+      fi
     fi
   fi
 fi
