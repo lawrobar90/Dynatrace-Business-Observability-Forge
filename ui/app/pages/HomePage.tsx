@@ -1052,7 +1052,7 @@ export const HomePage = () => {
       }
       setGeneratedDashboardJson(dashboard);
       const dashboardName = dashboard.name || `${company}-${journeyType}`;
-      const tileCount = dashboard.content?.tiles ? Object.keys(dashboard.content.tiles).length : '?';
+      const tileCount = dashboard.content?.tiles ? Object.keys(dashboard.content.tiles || {}).length : '?';
       const exportJson = JSON.stringify(dashboard.content, null, 2);
       const blob = new Blob([exportJson], { type: 'application/json' });
       const downloadUrl = URL.createObjectURL(blob);

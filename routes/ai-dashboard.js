@@ -1785,10 +1785,16 @@ async function generateDashboardStructure(journeyData) {
   const industryInfo = journeyData.industry || 'General';
   const dashboard = buildProvenDashboard(company, journeyType, journeyData.steps || [], detected, industryInfo);
 
-  // Merge dynamic tiles if any
-  const dynamicKeys = Object.keys(dynamicTiles);
-  if (dynamicKeys.length > 0) {
-    return buildDashboardLayout({}, dynamicTiles, markdownTiles, variables, company, journeyType, industry, [], detected);
+  // Merge dynamic field-specific tiles if the dashboard has a tiles property
+  const generatedDynamic = generateDynamicFieldTiles(detected, company, journeyType);
+  const dynamicKeys = Object.keys(generatedDynamic || {});
+  if (dynamicKeys.length > 0 && dashboard && dashboard.tiles) {
+    // Append dynamic tiles to existing dashboard
+    let maxKey = Math.max(0, ...Object.keys(dashboard.tiles).map(Number).filter(n => !isNaN(n)));
+    for (const [, tile] of Object.entries(generatedDynamic)) {
+      maxKey++;
+      dashboard.tiles[String(maxKey)] = tile;
+    }
   }
 
   return dashboard;
