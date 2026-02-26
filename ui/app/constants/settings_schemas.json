@@ -1,0 +1,1525 @@
+{
+  "items": [
+    {
+      "schemaId": "builtin:service-detection.full-web-service",
+      "displayName": "Service detection rules for Full Web Services",
+      "latestSchemaVersion": "2.1.14"
+    },
+    {
+      "schemaId": "builtin:preferences.privacy",
+      "displayName": "End users' data privacy",
+      "latestSchemaVersion": "4.0.1"
+    },
+    {
+      "schemaId": "builtin:logmonitoring.sensitive-data-masking-settings",
+      "displayName": "Sensitive data masking",
+      "latestSchemaVersion": "1.0.16"
+    },
+    {
+      "schemaId": "builtin:span-attribute",
+      "displayName": "Span attributes",
+      "latestSchemaVersion": "0.0.42"
+    },
+    {
+      "schemaId": "builtin:rum.web.custom-errors",
+      "displayName": "Custom errors",
+      "latestSchemaVersion": "1.0.3"
+    },
+    {
+      "schemaId": "builtin:host.monitoring.mode",
+      "displayName": "Monitoring Mode",
+      "latestSchemaVersion": "1.3"
+    },
+    {
+      "schemaId": "builtin:rum.host-headers",
+      "displayName": "Identify host names",
+      "latestSchemaVersion": "1.0.2"
+    },
+    {
+      "schemaId": "builtin:user-settings",
+      "displayName": "User Settings",
+      "latestSchemaVersion": "2"
+    },
+    {
+      "schemaId": "builtin:synthetic.browser.outage-handling",
+      "displayName": "Outage handling",
+      "latestSchemaVersion": "1.3.3"
+    },
+    {
+      "schemaId": "builtin:oneagent.side.masking.settings",
+      "displayName": "OneAgent side masking",
+      "latestSchemaVersion": "1.0.1"
+    },
+    {
+      "schemaId": "builtin:rum.web.automatic-injection",
+      "displayName": "Automatic injection",
+      "latestSchemaVersion": "1.2.4"
+    },
+    {
+      "schemaId": "builtin:appsec.third-party-vulnerability-kubernetes-label-rule-settings",
+      "displayName": "Vulnerability Analytics: Kubernetes monitoring rules for third-party vulnerabilities",
+      "latestSchemaVersion": "1"
+    },
+    {
+      "schemaId": "builtin:infrastructure.disk.edge.anomaly-detectors",
+      "displayName": "Anomaly detection for infrastructure: Disk Edge",
+      "latestSchemaVersion": "0.0.20"
+    },
+    {
+      "schemaId": "builtin:host.monitoring.advanced",
+      "displayName": "Advanced Settings",
+      "latestSchemaVersion": "0.0.2"
+    },
+    {
+      "schemaId": "builtin:appsec.attack-protection-allowlist-config",
+      "displayName": "Application Protection: Allowlist",
+      "latestSchemaVersion": "2.0.3"
+    },
+    {
+      "schemaId": "builtin:networkzones.zones",
+      "displayName": "Network zone",
+      "latestSchemaVersion": "1.0.1"
+    },
+    {
+      "schemaId": "builtin:preferences.ipaddressmasking",
+      "displayName": "Anonymize End-User IP Addresses",
+      "latestSchemaVersion": "1"
+    },
+    {
+      "schemaId": "builtin:attribute-block-list",
+      "displayName": "Blocked attributes",
+      "latestSchemaVersion": "0.0.2"
+    },
+    {
+      "schemaId": "builtin:cloud.kubernetes",
+      "displayName": "Connection settings",
+      "latestSchemaVersion": "3.1"
+    },
+    {
+      "schemaId": "builtin:attributes-preferences",
+      "displayName": "Preferences",
+      "latestSchemaVersion": "0.0.4"
+    },
+    {
+      "schemaId": "builtin:apis.detection-rules",
+      "displayName": "API detection rules",
+      "latestSchemaVersion": "3.1.5"
+    },
+    {
+      "schemaId": "builtin:rum.web.rum-javascript-file-name",
+      "displayName": "RUM monitoring code filename",
+      "latestSchemaVersion": "1.1.5"
+    },
+    {
+      "schemaId": "builtin:networkzones",
+      "displayName": "Network zones settings",
+      "latestSchemaVersion": "1.0.2"
+    },
+    {
+      "schemaId": "builtin:exclude.network.traffic",
+      "displayName": "Exclude network traffic",
+      "latestSchemaVersion": "1.0.1"
+    },
+    {
+      "schemaId": "builtin:synthetic.multiprotocol.name",
+      "displayName": "Monitor name",
+      "latestSchemaVersion": "1.1.2"
+    },
+    {
+      "schemaId": "builtin:url-based-sampling",
+      "displayName": "Trace sampling for HTTP requests",
+      "latestSchemaVersion": "1.0.3"
+    },
+    {
+      "schemaId": "builtin:service-detection.external-web-service",
+      "displayName": "Service detection rules for External Web Services",
+      "latestSchemaVersion": "2.1.10"
+    },
+    {
+      "schemaId": "builtin:rum.user-experience-score",
+      "displayName": "User experience score",
+      "latestSchemaVersion": "1.0.4"
+    },
+    {
+      "schemaId": "builtin:rum.frontend.name",
+      "displayName": "Frontend name",
+      "latestSchemaVersion": "1"
+    },
+    {
+      "schemaId": "builtin:appsec.notification-integration",
+      "displayName": "Security notifications",
+      "latestSchemaVersion": "0.4.10"
+    },
+    {
+      "schemaId": "builtin:rum.web.custom-configuration-properties",
+      "displayName": "Custom configuration properties",
+      "latestSchemaVersion": "1.0.1"
+    },
+    {
+      "schemaId": "builtin:process-visibility",
+      "displayName": "Process instance snapshots",
+      "latestSchemaVersion": "1"
+    },
+    {
+      "schemaId": "builtin:container.monitoring-rule",
+      "displayName": "Container monitoring rules",
+      "latestSchemaVersion": "0.0.2"
+    },
+    {
+      "schemaId": "builtin:spm-security-standards",
+      "displayName": "Security Posture Management",
+      "latestSchemaVersion": "0.0.4"
+    },
+    {
+      "schemaId": "builtin:service-splitting-rules",
+      "displayName": "Service splitting",
+      "latestSchemaVersion": "0.0.10"
+    },
+    {
+      "schemaId": "builtin:process.custom-process-monitoring-rule",
+      "displayName": "Custom process monitoring rules",
+      "latestSchemaVersion": "0.4.12"
+    },
+    {
+      "schemaId": "builtin:deployment.oneagent.updates",
+      "displayName": "OneAgent updates",
+      "latestSchemaVersion": "1.0.4"
+    },
+    {
+      "schemaId": "builtin:problem.fields",
+      "displayName": "Problem fields",
+      "latestSchemaVersion": "1.9"
+    },
+    {
+      "schemaId": "builtin:monitoredentities.generic.type",
+      "displayName": "Generic types",
+      "latestSchemaVersion": "1.2"
+    },
+    {
+      "schemaId": "builtin:service-detection.external-web-request",
+      "displayName": "Service detection rules for External Web Requests",
+      "latestSchemaVersion": "2.1.14"
+    },
+    {
+      "schemaId": "builtin:rum.ip-mappings",
+      "displayName": "Map IP addresses to locations",
+      "latestSchemaVersion": "1.1.2"
+    },
+    {
+      "schemaId": "builtin:eec.local",
+      "displayName": "Extension Execution Controller",
+      "latestSchemaVersion": "0.0.5"
+    },
+    {
+      "schemaId": "builtin:crashdump.analytics",
+      "displayName": "Crash dump analytics",
+      "latestSchemaVersion": "1.1.1"
+    },
+    {
+      "schemaId": "builtin:host.process-groups.monitoring-state",
+      "displayName": "Process group monitoring",
+      "latestSchemaVersion": "1.0.1"
+    },
+    {
+      "schemaId": "builtin:anomaly-detection.kubernetes.namespace",
+      "displayName": "Kubernetes namespace anomaly detection",
+      "latestSchemaVersion": "1.2"
+    },
+    {
+      "schemaId": "builtin:container.technology",
+      "displayName": "Container monitoring",
+      "latestSchemaVersion": "1.0.8"
+    },
+    {
+      "schemaId": "builtin:appsec.attack-protection-advanced-config",
+      "displayName": "Application Protection: Monitoring rules",
+      "latestSchemaVersion": "2.0.3"
+    },
+    {
+      "schemaId": "builtin:bizevents.http.capturing-variants",
+      "displayName": "OneAgent Business events capturing variants",
+      "latestSchemaVersion": "1"
+    },
+    {
+      "schemaId": "builtin:rum.mobile.name",
+      "displayName": "Application name",
+      "latestSchemaVersion": "1.2"
+    },
+    {
+      "schemaId": "builtin:monitored-technologies.dotnet",
+      "displayName": ".NET",
+      "latestSchemaVersion": "0.0.2"
+    },
+    {
+      "schemaId": "builtin:sessionreplay.web.resource-capturing",
+      "displayName": "Resource capture for Session Replay",
+      "latestSchemaVersion": "1.0.2"
+    },
+    {
+      "schemaId": "builtin:anomaly-detection.kubernetes.cluster",
+      "displayName": "Kubernetes cluster anomaly detection",
+      "latestSchemaVersion": "1.4"
+    },
+    {
+      "schemaId": "builtin:service-detection-rules",
+      "displayName": "Service detection",
+      "latestSchemaVersion": "0.0.4"
+    },
+    {
+      "schemaId": "builtin:process-group.monitoring.state",
+      "displayName": "Process group monitoring",
+      "latestSchemaVersion": "0.4"
+    },
+    {
+      "schemaId": "builtin:resource-attribute",
+      "displayName": "Resource attributes",
+      "latestSchemaVersion": "1.0.29"
+    },
+    {
+      "schemaId": "builtin:synthetic.browser.enablement",
+      "displayName": "Browser monitor enablement",
+      "latestSchemaVersion": "1.0.10"
+    },
+    {
+      "schemaId": "builtin:rum.provider-breakdown",
+      "displayName": "Provider breakdown",
+      "latestSchemaVersion": "1.0.7"
+    },
+    {
+      "schemaId": "builtin:rum.web.key-performance-metric-xhr-actions",
+      "displayName": "Apdex configuration for XHR actions",
+      "latestSchemaVersion": "1.1"
+    },
+    {
+      "schemaId": "builtin:kubernetes.security-posture-management",
+      "displayName": "Security Posture Management: Kubernetes",
+      "latestSchemaVersion": "1"
+    },
+    {
+      "schemaId": "builtin:mainframe.txmonitoring",
+      "displayName": "Transaction monitoring",
+      "latestSchemaVersion": "1.6.3"
+    },
+    {
+      "schemaId": "builtin:rum.web.rum-javascript-updates",
+      "displayName": "RUM JavaScript updates",
+      "latestSchemaVersion": "1.2.1"
+    },
+    {
+      "schemaId": "builtin:ibmmq.queue-managers",
+      "displayName": "IBM MQ queue managers",
+      "latestSchemaVersion": "1"
+    },
+    {
+      "schemaId": "builtin:ibmmq.ims-bridges",
+      "displayName": "IBM MQ IMS bridges",
+      "latestSchemaVersion": "0.0.8"
+    },
+    {
+      "schemaId": "builtin:failure-detection.environment.rules",
+      "displayName": "Failure detection rules",
+      "latestSchemaVersion": "1.0.9"
+    },
+    {
+      "schemaId": "builtin:rum.web.xhr-exclusion",
+      "displayName": "Exclude XHR requests from monitoring",
+      "latestSchemaVersion": "1.0.3"
+    },
+    {
+      "schemaId": "builtin:appsec.rule-settings",
+      "displayName": "Vulnerability Analytics: Monitoring rules for third-party vulnerabilities",
+      "latestSchemaVersion": "1.0.8"
+    },
+    {
+      "schemaId": "builtin:monitored-technologies.python",
+      "displayName": "Python",
+      "latestSchemaVersion": "1.0.2"
+    },
+    {
+      "schemaId": "builtin:logmonitoring.log-agent-configuration",
+      "displayName": "Advanced log settings",
+      "latestSchemaVersion": "1.1.17"
+    },
+    {
+      "schemaId": "builtin:endpoint-detection-rules",
+      "displayName": "Endpoint detection",
+      "latestSchemaVersion": "1.0.2"
+    },
+    {
+      "schemaId": "builtin:monitored-technologies.nginx",
+      "displayName": "Nginx",
+      "latestSchemaVersion": "0.0.2"
+    },
+    {
+      "schemaId": "builtin:oneagent.features",
+      "displayName": "OneAgent features",
+      "latestSchemaVersion": "1.5.10"
+    },
+    {
+      "schemaId": "builtin:geo-settings",
+      "displayName": "Geolocation settings",
+      "latestSchemaVersion": "1.0.1"
+    },
+    {
+      "schemaId": "builtin:attribute-masking",
+      "displayName": "Attribute data masking",
+      "latestSchemaVersion": "0.0.4"
+    },
+    {
+      "schemaId": "builtin:deployment.activegate.updates",
+      "displayName": "ActiveGate updates",
+      "latestSchemaVersion": "1.0.1"
+    },
+    {
+      "schemaId": "builtin:process.built-in-process-monitoring-rule",
+      "displayName": "Built-in process monitoring rules",
+      "latestSchemaVersion": "0.4.6"
+    },
+    {
+      "schemaId": "builtin:rum.custom.enablement",
+      "displayName": "Enablement and cost control",
+      "latestSchemaVersion": "1.1.6"
+    },
+    {
+      "schemaId": "builtin:rum.web.beacon-domain-origins",
+      "displayName": "Beacon origins for CORS",
+      "latestSchemaVersion": "1.0.3"
+    },
+    {
+      "schemaId": "builtin:monitored-technologies.wsmb",
+      "displayName": "IBM Integration Bus | IBM App Connect Enterprise",
+      "latestSchemaVersion": "0.0.2"
+    },
+    {
+      "schemaId": "builtin:elasticsearch.user-session-export-settings-v2",
+      "displayName": "User session exports",
+      "latestSchemaVersion": "0.0.17"
+    },
+    {
+      "schemaId": "builtin:synthetic.multiprotocol.performance-thresholds",
+      "displayName": "Performance thresholds",
+      "latestSchemaVersion": "1.0.5"
+    },
+    {
+      "schemaId": "builtin:host.monitoring.aix-kernel-extension",
+      "displayName": "AIX kernel extension",
+      "latestSchemaVersion": "1"
+    },
+    {
+      "schemaId": "builtin:logmonitoring.log-storage-settings",
+      "displayName": "Log ingest rules",
+      "latestSchemaVersion": "1.0.18"
+    },
+    {
+      "schemaId": "builtin:service-detection.full-web-request",
+      "displayName": "Service detection rules for Full Web Requests",
+      "latestSchemaVersion": "2.1.14"
+    },
+    {
+      "schemaId": "builtin:service-detection-v2-for-oneagent",
+      "displayName": "Service Detection v2 for OneAgent",
+      "latestSchemaVersion": "0.6"
+    },
+    {
+      "schemaId": "builtin:span-context-propagation",
+      "displayName": "Span context propagation",
+      "latestSchemaVersion": "0.1.18"
+    },
+    {
+      "schemaId": "builtin:synthetic.browser.name",
+      "displayName": "Monitor name",
+      "latestSchemaVersion": "1.0.3"
+    },
+    {
+      "schemaId": "builtin:devobs.agent.optin",
+      "displayName": "Enable Observability For Developers",
+      "latestSchemaVersion": "0.5"
+    },
+    {
+      "schemaId": "builtin:ebpf.service.discovery",
+      "displayName": "eBPF Service Discovery",
+      "latestSchemaVersion": "1.0.2"
+    },
+    {
+      "schemaId": "builtin:rum.web.manual-insertion",
+      "displayName": "Manual insertion",
+      "latestSchemaVersion": "1"
+    },
+    {
+      "schemaId": "builtin:eec.remote",
+      "displayName": "Extension Execution Controller",
+      "latestSchemaVersion": "0.1.1"
+    },
+    {
+      "schemaId": "builtin:appsec.code-level-vulnerability-rule-settings",
+      "displayName": "Vulnerability Analytics: Monitoring rules for code-level vulnerabilities",
+      "latestSchemaVersion": "3.0.5"
+    },
+    {
+      "schemaId": "builtin:rum.web.custom-injection-rules",
+      "displayName": "Define custom injection rules",
+      "latestSchemaVersion": "1.0.1"
+    },
+    {
+      "schemaId": "builtin:kubernetes.generic.metadata.enrichment",
+      "displayName": "Kubernetes Telemetry Enrichment",
+      "latestSchemaVersion": "1.4"
+    },
+    {
+      "schemaId": "builtin:appsec.attack-protection-settings",
+      "displayName": "Application Protection: General settings",
+      "latestSchemaVersion": "2.6"
+    },
+    {
+      "schemaId": "builtin:process-group.detection-flags",
+      "displayName": "Built-in detection rules",
+      "latestSchemaVersion": "0.0.15"
+    },
+    {
+      "schemaId": "builtin:rum.web.key-performance-metric-load-actions",
+      "displayName": "Apdex configuration for load actions",
+      "latestSchemaVersion": "1.1"
+    },
+    {
+      "schemaId": "builtin:rum.custom.name",
+      "displayName": "Application name and type",
+      "latestSchemaVersion": "1.2"
+    },
+    {
+      "schemaId": "builtin:failure-detection.environment.parameters",
+      "displayName": "Failure detection parameters",
+      "latestSchemaVersion": "1.0.6"
+    },
+    {
+      "schemaId": "builtin:logmonitoring.timestamp-configuration",
+      "displayName": "Timestamp/Splitting patterns",
+      "latestSchemaVersion": "1.0.19"
+    },
+    {
+      "schemaId": "builtin:synthetic.http.outage-handling",
+      "displayName": "Outage handling",
+      "latestSchemaVersion": "1.3.3"
+    },
+    {
+      "schemaId": "builtin:failure-detection.service.general-parameters",
+      "displayName": "General failure detection parameters",
+      "latestSchemaVersion": "1.0.4"
+    },
+    {
+      "schemaId": "builtin:rum.web.injection.cookie",
+      "displayName": "Cookie",
+      "latestSchemaVersion": "1.0.1"
+    },
+    {
+      "schemaId": "builtin:anomaly-detection.databases",
+      "displayName": "Anomaly detection for databases",
+      "latestSchemaVersion": "0.0.18"
+    },
+    {
+      "schemaId": "builtin:activegate-token",
+      "displayName": "Network security",
+      "latestSchemaVersion": "1.1"
+    },
+    {
+      "schemaId": "builtin:anomaly-detection.rum-mobile",
+      "displayName": "Anomaly detection for mobile applications",
+      "latestSchemaVersion": "1.0.1"
+    },
+    {
+      "schemaId": "builtin:alerting.connectivity-alerts",
+      "displayName": "Connectivity alerts",
+      "latestSchemaVersion": "1"
+    },
+    {
+      "schemaId": "builtin:rum.web.beacon-endpoint",
+      "displayName": "Beacon endpoint settings",
+      "latestSchemaVersion": "1.0.1"
+    },
+    {
+      "schemaId": "builtin:ibmmq.queue-sharing-group",
+      "displayName": "IBM MQ queue sharing groups",
+      "latestSchemaVersion": "1.0.1"
+    },
+    {
+      "schemaId": "builtin:synthetic.primary-grail-tags",
+      "displayName": "Synthetic monitor's primary grail tags",
+      "latestSchemaVersion": "1.0.1"
+    },
+    {
+      "schemaId": "builtin:trace.ingest.control",
+      "displayName": "Trace ingest control",
+      "latestSchemaVersion": "0.0.5"
+    },
+    {
+      "schemaId": "builtin:process-grouping-rules",
+      "displayName": "Process grouping rules",
+      "latestSchemaVersion": "2.4.6"
+    },
+    {
+      "schemaId": "builtin:synthetic.http.cookies",
+      "displayName": "Cookies",
+      "latestSchemaVersion": "1.0.2"
+    },
+    {
+      "schemaId": "builtin:monitored-technologies.apache",
+      "displayName": "Apache HTTP Server",
+      "latestSchemaVersion": "0.0.2"
+    },
+    {
+      "schemaId": "builtin:sessionreplay.web.privacy-preferences",
+      "displayName": "Session replay data privacy",
+      "latestSchemaVersion": "1.0.8"
+    },
+    {
+      "schemaId": "builtin:os-services-monitoring",
+      "displayName": "OS services monitoring",
+      "latestSchemaVersion": "1.3.13"
+    },
+    {
+      "schemaId": "builtin:rum.web.capture-custom-properties",
+      "displayName": "Custom Properties Capture Restrictions",
+      "latestSchemaVersion": "0.4"
+    },
+    {
+      "schemaId": "builtin:rum.web.app-detection",
+      "displayName": "Application detection",
+      "latestSchemaVersion": "2.1.1"
+    },
+    {
+      "schemaId": "builtin:synthetic.http.assigned-applications",
+      "displayName": "Assign synthetic monitor to applications",
+      "latestSchemaVersion": "1.1.3"
+    },
+    {
+      "schemaId": "builtin:synthetic.browser.performance-thresholds",
+      "displayName": "Performance thresholds",
+      "latestSchemaVersion": "1.8.1"
+    },
+    {
+      "schemaId": "builtin:rum.web.request-errors",
+      "displayName": "Request errors",
+      "latestSchemaVersion": "1.0.2"
+    },
+    {
+      "schemaId": "builtin:rum.mobile.request-errors",
+      "displayName": "Request errors",
+      "latestSchemaVersion": "1.0.2"
+    },
+    {
+      "schemaId": "builtin:synthetic.multiprotocol.scheduling",
+      "displayName": "Frequency and locations",
+      "latestSchemaVersion": "1.0.1"
+    },
+    {
+      "schemaId": "builtin:metric.query",
+      "displayName": "Metric query",
+      "latestSchemaVersion": "4.0.3"
+    },
+    {
+      "schemaId": "builtin:monitored-technologies.php",
+      "displayName": "PHP",
+      "latestSchemaVersion": "0.0.4"
+    },
+    {
+      "schemaId": "builtin:tokens.token-settings",
+      "displayName": "Access tokens",
+      "latestSchemaVersion": "2.0.2"
+    },
+    {
+      "schemaId": "builtin:span-entry-points",
+      "displayName": "Span entry points",
+      "latestSchemaVersion": "0.1.16"
+    },
+    {
+      "schemaId": "builtin:container.built-in-monitoring-rule",
+      "displayName": "Built-in container monitoring rules",
+      "latestSchemaVersion": "0.0.3"
+    },
+    {
+      "schemaId": "builtin:rum.mobile.key-performance-metrics",
+      "displayName": "Apdex configuration",
+      "latestSchemaVersion": "1.1.6"
+    },
+    {
+      "schemaId": "builtin:rum.web.key-performance-metric-custom-actions",
+      "displayName": "Apdex configuration for custom actions",
+      "latestSchemaVersion": "1.1"
+    },
+    {
+      "schemaId": "builtin:mainframe.txstartfilters",
+      "displayName": "Transaction start filters",
+      "latestSchemaVersion": "1.2"
+    },
+    {
+      "schemaId": "builtin:synthetic.browser.scheduling",
+      "displayName": "Frequency and locations",
+      "latestSchemaVersion": "3.4.4"
+    },
+    {
+      "schemaId": "builtin:anomaly-detection.kubernetes.node",
+      "displayName": "Kubernetes node anomaly detection",
+      "latestSchemaVersion": "1.3.1"
+    },
+    {
+      "schemaId": "builtin:opentelemetry-metrics",
+      "displayName": "OpenTelemetry metrics",
+      "latestSchemaVersion": "1.6.2"
+    },
+    {
+      "schemaId": "builtin:deployment.management.update-windows",
+      "displayName": "Update windows for OneAgent updates",
+      "latestSchemaVersion": "0.63.2"
+    },
+    {
+      "schemaId": "builtin:appsec.notification-alerting-profile",
+      "displayName": "Vulnerability alerting profiles",
+      "latestSchemaVersion": "0.1.4"
+    },
+    {
+      "schemaId": "builtin:rum.mobile.beacon-endpoint",
+      "displayName": "Beacon endpoint settings",
+      "latestSchemaVersion": "1.1.7"
+    },
+    {
+      "schemaId": "builtin:monitored-technologies.nodejs",
+      "displayName": "Node.js",
+      "latestSchemaVersion": "0.0.2"
+    },
+    {
+      "schemaId": "builtin:anomaly-detection.kubernetes.workload",
+      "displayName": "Kubernetes workload anomaly detection",
+      "latestSchemaVersion": "1.10.2"
+    },
+    {
+      "schemaId": "builtin:eula-settings",
+      "displayName": "Terms of use",
+      "latestSchemaVersion": "1.0.1"
+    },
+    {
+      "schemaId": "builtin:process-group.cloud-application-workload-detection",
+      "displayName": "Cloud application and workload detection",
+      "latestSchemaVersion": "1.5"
+    },
+    {
+      "schemaId": "builtin:rum.web.name",
+      "displayName": "Application name",
+      "latestSchemaVersion": "1.0.3"
+    },
+    {
+      "schemaId": "builtin:metric.metadata",
+      "displayName": "Metric metadata",
+      "latestSchemaVersion": "4.29"
+    },
+    {
+      "schemaId": "builtin:rum.web.custom-rum-javascript-version",
+      "displayName": "Custom RUM JavaScript version",
+      "latestSchemaVersion": "1.1"
+    },
+    {
+      "schemaId": "builtin:synthetic.multiprotocol.outage-handling",
+      "displayName": "Outage handling",
+      "latestSchemaVersion": "1.0.1"
+    },
+    {
+      "schemaId": "builtin:synthetic.http.name",
+      "displayName": "Monitor name",
+      "latestSchemaVersion": "1.0.4"
+    },
+    {
+      "schemaId": "builtin:monitored-technologies.iis",
+      "displayName": "IIS",
+      "latestSchemaVersion": "0.0.2"
+    },
+    {
+      "schemaId": "builtin:devobs.sensitive.data.masking",
+      "displayName": "Sensitive Data Masking",
+      "latestSchemaVersion": "0.5.2"
+    },
+    {
+      "schemaId": "builtin:span-capturing",
+      "displayName": "Span capturing",
+      "latestSchemaVersion": "0.1.15"
+    },
+    {
+      "schemaId": "builtin:logmonitoring.log-agent-feature-flags",
+      "displayName": "Log module feature flags",
+      "latestSchemaVersion": "1.0.3"
+    },
+    {
+      "schemaId": "builtin:synthetic.synthetic-availability-settings",
+      "displayName": "Synthetic availability",
+      "latestSchemaVersion": "1.0.1"
+    },
+    {
+      "schemaId": "builtin:monitored-technologies.java",
+      "displayName": "Java",
+      "latestSchemaVersion": "0.0.2"
+    },
+    {
+      "schemaId": "builtin:monitored-technologies.open-tracing-native",
+      "displayName": "Envoy",
+      "latestSchemaVersion": "0.0.3"
+    },
+    {
+      "schemaId": "builtin:anomaly-detection.services",
+      "displayName": "Anomaly detection for services",
+      "latestSchemaVersion": "0.0.19"
+    },
+    {
+      "schemaId": "builtin:disk.options",
+      "displayName": "Disk options",
+      "latestSchemaVersion": "1.2.14"
+    },
+    {
+      "schemaId": "builtin:process.process-monitoring",
+      "displayName": "Process group monitoring",
+      "latestSchemaVersion": "0.2"
+    },
+    {
+      "schemaId": "builtin:appsec.third-party-vulnerability-rule-settings",
+      "displayName": "Vulnerability Analytics: Monitoring rules for third-party vulnerabilities",
+      "latestSchemaVersion": "1"
+    },
+    {
+      "schemaId": "builtin:rum.web.enablement",
+      "displayName": "Enablement and cost control",
+      "latestSchemaVersion": "1.6.1"
+    },
+    {
+      "schemaId": "builtin:synthetic.http.scheduling",
+      "displayName": "Frequency and locations",
+      "latestSchemaVersion": "1.4.3"
+    },
+    {
+      "schemaId": "builtin:settings.mutedrequests",
+      "displayName": "Muted requests",
+      "latestSchemaVersion": "0.0.5"
+    },
+    {
+      "schemaId": "builtin:appsec.runtime-vulnerability-detection",
+      "displayName": "Vulnerability Analytics: General settings",
+      "latestSchemaVersion": "3.12.1"
+    },
+    {
+      "schemaId": "builtin:synthetic.http.performance-thresholds",
+      "displayName": "Performance thresholds",
+      "latestSchemaVersion": "1.6.2"
+    },
+    {
+      "schemaId": "builtin:endpoint-detection-rules-opt-in",
+      "displayName": "Enable endpoint detection",
+      "latestSchemaVersion": "0.0.1"
+    },
+    {
+      "schemaId": "builtin:span-event-attribute",
+      "displayName": "Span events",
+      "latestSchemaVersion": "1.0.17"
+    },
+    {
+      "schemaId": "builtin:rum.mobile.privacy",
+      "displayName": "Privacy settings",
+      "latestSchemaVersion": "1.1.8"
+    },
+    {
+      "schemaId": "builtin:failure-detection.service.http-parameters",
+      "displayName": "HTTP failure detection parameters",
+      "latestSchemaVersion": "1.0.2"
+    },
+    {
+      "schemaId": "builtin:failure-detection-rulesets",
+      "displayName": "Failure detection",
+      "latestSchemaVersion": "0.0.7"
+    },
+    {
+      "schemaId": "builtin:rum.overload-prevention",
+      "displayName": "RUM overload prevention",
+      "latestSchemaVersion": "1"
+    },
+    {
+      "schemaId": "builtin:monitored-technologies.go",
+      "displayName": "Go",
+      "latestSchemaVersion": "0.0.3"
+    },
+    {
+      "schemaId": "builtin:attribute-allow-list",
+      "displayName": "Allowed attributes",
+      "latestSchemaVersion": "0.0.19"
+    },
+    {
+      "schemaId": "builtin:mainframe.mqfilters",
+      "displayName": "IBM MQ filters",
+      "latestSchemaVersion": "1.0.3"
+    },
+    {
+      "schemaId": "builtin:synthetic.browser.kpms",
+      "displayName": "Key performance metrics",
+      "latestSchemaVersion": "0.0.2"
+    },
+    {
+      "schemaId": "builtin:anomaly-detection.rum-mobile-crash-rate-increase",
+      "displayName": "Crash rate increase settings for mobile applications",
+      "latestSchemaVersion": "1.0.1"
+    },
+    {
+      "schemaId": "builtin:rum.web.ipaddress-exclusion",
+      "displayName": "Exclude IP addresses from monitoring",
+      "latestSchemaVersion": "6.0.3"
+    },
+    {
+      "schemaId": "builtin:disk.analytics.extension",
+      "displayName": "Disk Analytics Extension",
+      "latestSchemaVersion": "0.0.9"
+    },
+    {
+      "schemaId": "builtin:appsec.notification-attack-alerting-profile",
+      "displayName": "Attack alerting profiles",
+      "latestSchemaVersion": "0.0.4"
+    },
+    {
+      "schemaId": "builtin:enhanced-endpoints-for-sdv1",
+      "displayName": "Enhanced endpoints for SDv1",
+      "latestSchemaVersion": "3.1"
+    },
+    {
+      "schemaId": "builtin:davis.anomaly-detectors",
+      "displayName": "Anomaly detectors",
+      "latestSchemaVersion": "1.0.11"
+    },
+    {
+      "schemaId": "builtin:monitored-technologies.varnish",
+      "displayName": "Varnish Cache",
+      "latestSchemaVersion": "0.0.3"
+    },
+    {
+      "schemaId": "builtin:nettracer.traffic",
+      "displayName": "NetTracer traffic",
+      "latestSchemaVersion": "1.0.2"
+    },
+    {
+      "schemaId": "builtin:logmonitoring.custom-log-source-settings",
+      "displayName": "Custom log sources",
+      "latestSchemaVersion": "1.1.2"
+    },
+    {
+      "schemaId": "builtin:bizevents.http.incoming",
+      "displayName": "Capture business events with OneAgent",
+      "latestSchemaVersion": "1.0.4"
+    },
+    {
+      "schemaId": "builtin:cloud.kubernetes.monitoring",
+      "displayName": "Monitoring settings",
+      "latestSchemaVersion": "1.0.2"
+    },
+    {
+      "schemaId": "builtin:logmonitoring.log-sfm-settings",
+      "displayName": "Log module self monitoring settings",
+      "latestSchemaVersion": "1"
+    },
+    {
+      "schemaId": "builtin:synthetic.multiprotocol.config",
+      "displayName": "Network Availability monitor config",
+      "latestSchemaVersion": "1.2.2"
+    },
+    {
+      "schemaId": "builtin:rpc-based-sampling",
+      "displayName": "Trace sampling for RPC requests",
+      "latestSchemaVersion": "1.0.3"
+    },
+    {
+      "schemaId": "builtin:monitoredentities.generic.relation",
+      "displayName": "Generic relationships",
+      "latestSchemaVersion": "1.2"
+    },
+    {
+      "schemaId": "builtin:rum.ip-determination",
+      "displayName": "IP determination",
+      "latestSchemaVersion": "1.0.1"
+    },
+    {
+      "schemaId": "builtin:rum.mobile.enablement",
+      "displayName": "Enablement and cost control",
+      "latestSchemaVersion": "2.6.1"
+    },
+    {
+      "schemaId": "builtin:host.monitoring",
+      "displayName": "Monitoring",
+      "latestSchemaVersion": "1.4"
+    },
+    {
+      "schemaId": "builtin:rum.processgroup",
+      "displayName": "Real User Monitoring for process group",
+      "latestSchemaVersion": "2.0.3"
+    },
+    {
+      "schemaId": "builtin:global.trace.ingest.control",
+      "displayName": "Global trace ingest rate control",
+      "latestSchemaVersion": "0.0.3"
+    },
+    {
+      "schemaId": "builtin:url-path-pattern-matching-rules",
+      "displayName": "URL path pattern matching",
+      "latestSchemaVersion": "0.0.5"
+    },
+    {
+      "schemaId": "builtin:rum.web.browser-exclusion",
+      "displayName": "Exclude/Include browsers from monitoring",
+      "latestSchemaVersion": "1.1.2"
+    },
+    {
+      "schemaId": "builtin:processavailability",
+      "displayName": "Process availability",
+      "latestSchemaVersion": "1.1.18"
+    },
+    {
+      "schemaId": "builtin:anomaly-detection.rum-web",
+      "displayName": "Anomaly detection for applications",
+      "latestSchemaVersion": "1.0.1"
+    },
+    {
+      "schemaId": "builtin:user-appfw-preferences",
+      "displayName": "App Framework user Preferences",
+      "latestSchemaVersion": "1.0.1"
+    },
+    {
+      "schemaId": "builtin:anomaly-detection.kubernetes.pvc",
+      "displayName": "Kubernetes persistent volume claim anomaly detection",
+      "latestSchemaVersion": "1.2"
+    },
+    {
+      "schemaId": "builtin:deployment.oneagent.default-mode",
+      "displayName": "OneAgent default mode",
+      "latestSchemaVersion": "1.1"
+    },
+    {
+      "schemaId": "builtin:anomaly-detection.infrastructure-hosts",
+      "displayName": "Anomaly detection for infrastructure: Host",
+      "latestSchemaVersion": "1.3"
+    },
+    {
+      "schemaId": "builtin:bizevents.http.outgoing",
+      "displayName": "Capture business events with OneAgent",
+      "latestSchemaVersion": "1.0.4"
+    },
+    {
+      "schemaId": "builtin:anomaly-detection.holiday-aware-baseline",
+      "displayName": "Holiday-aware baseline modification",
+      "latestSchemaVersion": "1.0.1"
+    },
+    {
+      "schemaId": "builtin:synthetic.browser.assigned-applications",
+      "displayName": "Assign synthetic monitor to web applications",
+      "latestSchemaVersion": "1.1.3"
+    },
+    {
+      "schemaId": "builtin:rum.resource-timing-origins",
+      "displayName": "Advanced correlation",
+      "latestSchemaVersion": "0.0.5"
+    },
+    {
+      "schemaId": "builtin:security-enrichment.connections",
+      "displayName": "Security enrichment connections",
+      "latestSchemaVersion": "0.2"
+    },
+    {
+      "schemaId": "builtin:hyperscaler-authentication.connections.azure",
+      "displayName": "Connections to Azure environments",
+      "latestSchemaVersion": "0.0.14"
+    },
+    {
+      "schemaId": "builtin:hyperscaler-authentication.aws.connection",
+      "displayName": "AWS Connections",
+      "latestSchemaVersion": "0.0.3"
+    },
+    {
+      "schemaId": "builtin:hub-channel.subscriptions",
+      "displayName": "Hub subscriptions",
+      "latestSchemaVersion": "1.0.2"
+    },
+    {
+      "schemaId": "builtin:app-engine-registry.cloud-development-environments",
+      "displayName": "Cloud Development Environments",
+      "latestSchemaVersion": "1.1"
+    },
+    {
+      "schemaId": "builtin:dt-javascript-runtime.app-monitoring",
+      "displayName": "App Monitoring",
+      "latestSchemaVersion": "2.4.1"
+    },
+    {
+      "schemaId": "builtin:health-experience.cloud-alert",
+      "displayName": "Cloud health alerts settings",
+      "latestSchemaVersion": "1.0.29"
+    },
+    {
+      "schemaId": "builtin:hyperscaler-authentication.connections.aws",
+      "displayName": "Connections to AWS environments",
+      "latestSchemaVersion": "0.0.24"
+    },
+    {
+      "schemaId": "service:davis.copilot.datamining-blocklist",
+      "displayName": "Generative and agentic AI",
+      "latestSchemaVersion": "0.4"
+    },
+    {
+      "schemaId": "builtin:health-experience.frontend-alert",
+      "displayName": "Frontend health alerts",
+      "latestSchemaVersion": "1.1"
+    },
+    {
+      "schemaId": "builtin:dt-javascript-runtime.allowed-outbound-connections",
+      "displayName": "Limit outbound connections",
+      "latestSchemaVersion": "1.0.4"
+    },
+    {
+      "schemaId": "builtin:automation.approval",
+      "displayName": "Automation workflow approval",
+      "latestSchemaVersion": "0.2"
+    },
+    {
+      "schemaId": "app:dynatrace.pagerduty:connection",
+      "displayName": "PagerDuty Connections",
+      "latestSchemaVersion": "1.0.1"
+    },
+    {
+      "schemaId": "app:dynatrace.microsoft365.connector:mail.connection",
+      "displayName": "Microsoft 365 Email Connections",
+      "latestSchemaVersion": "1.0.2"
+    },
+    {
+      "schemaId": "app:dynatrace.biz.flow:biz-flow-settings",
+      "displayName": "Business flow",
+      "latestSchemaVersion": "0.9"
+    },
+    {
+      "schemaId": "app:dynatrace.azure.connector:microsoft-entra-identity-developer-connection",
+      "displayName": "Microsoft Entra ID",
+      "latestSchemaVersion": "0.2.2"
+    },
+    {
+      "schemaId": "app:dynatrace.jira:connection",
+      "displayName": "Jira Connections",
+      "latestSchemaVersion": "1.0.3"
+    },
+    {
+      "schemaId": "app:dynatrace.discovery.coverage:discovery.findings.default.rules.schema",
+      "displayName": "Discovery findings default rules schema",
+      "latestSchemaVersion": "1.0.9"
+    },
+    {
+      "schemaId": "app:dynatrace.jenkins.connector:connection",
+      "displayName": "Jenkins Connections",
+      "latestSchemaVersion": "1.0.1"
+    },
+    {
+      "schemaId": "app:dynatrace.serverlesstoolbox:minimalapp-super-secret-setting",
+      "displayName": "this is some super secret setting",
+      "latestSchemaVersion": "1"
+    },
+    {
+      "schemaId": "app:dynatrace.devobs.debugger:git.on.prem",
+      "displayName": "Git On-Premise Servers",
+      "latestSchemaVersion": "0.3"
+    },
+    {
+      "schemaId": "app:dynatrace.servicenow:connection",
+      "displayName": "ServiceNow Connections",
+      "latestSchemaVersion": "2.1"
+    },
+    {
+      "schemaId": "app:dynatrace.launcher:home.launchpad",
+      "displayName": "Launcher",
+      "latestSchemaVersion": "0.0.3"
+    },
+    {
+      "schemaId": "app:dynatrace.redhat.ansible:eda-webhook.connection",
+      "displayName": "Red Hat Event-Driven Ansible Connections",
+      "latestSchemaVersion": "2.1"
+    },
+    {
+      "schemaId": "app:dynatrace.hub:manage.permissions",
+      "displayName": "Hub Requests",
+      "latestSchemaVersion": "0.0.6"
+    },
+    {
+      "schemaId": "app:dynatrace.kubernetes.connector:connection",
+      "displayName": "Kubernetes Connector",
+      "latestSchemaVersion": "0.1.14"
+    },
+    {
+      "schemaId": "app:dynatrace.slack:connection",
+      "displayName": "Slack",
+      "latestSchemaVersion": "0.1.1"
+    },
+    {
+      "schemaId": "app:dynatrace.github.connector:connection",
+      "displayName": "GitHub Connections",
+      "latestSchemaVersion": "1.0.1"
+    },
+    {
+      "schemaId": "app:dynatrace.sap.powerconnect:onboarding",
+      "displayName": "Onboarding state",
+      "latestSchemaVersion": "1"
+    },
+    {
+      "schemaId": "app:dynatrace.compliance.assistant:comp-ass-settings",
+      "displayName": "Compliance Assistant",
+      "latestSchemaVersion": "0.7.1"
+    },
+    {
+      "schemaId": "app:dynatrace.gitlab.connector:connection",
+      "displayName": "GitLab Connections",
+      "latestSchemaVersion": "1.0.1"
+    },
+    {
+      "schemaId": "app:dynatrace.msteams:connection",
+      "displayName": "Microsoft Teams",
+      "latestSchemaVersion": "2.0.1"
+    },
+    {
+      "schemaId": "app:dynatrace.redhat.ansible:automation-controller.connection",
+      "displayName": "Red Hat Ansible Automation Controller Connections",
+      "latestSchemaVersion": "2"
+    },
+    {
+      "schemaId": "app:dynatrace.infraops:settings",
+      "displayName": "Infrastructure & Operations app settings",
+      "latestSchemaVersion": "1.4.2"
+    },
+    {
+      "schemaId": "app:dynatrace.biz.carbon:cost-and-carbon-settings",
+      "displayName": "Cost & Carbon Optimization",
+      "latestSchemaVersion": "1.1"
+    },
+    {
+      "schemaId": "app:dynatrace.site.reliability.guardian:guardians",
+      "displayName": "Site Reliability Guardian",
+      "latestSchemaVersion": "1.9"
+    },
+    {
+      "schemaId": "builtin:openpipeline.events.security.pipelines",
+      "displayName": "Ingest pipelines configuration (events.security)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.logs.data-forwarding",
+      "displayName": "Data forwarding configuration (logs)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.usersessions.data-forwarding",
+      "displayName": "Data forwarding configuration (usersessions)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.davis.events.pipelines",
+      "displayName": "Ingest pipelines configuration (davis.events)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.events.data-forwarding",
+      "displayName": "Data forwarding configuration (events)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.bizevents.pipelines",
+      "displayName": "Ingest pipelines configuration (bizevents)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.spans.routing",
+      "displayName": "Ingest routing configuration (spans)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.security.events.routing",
+      "displayName": "Ingest routing configuration (security.events)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.spans.pipeline-groups",
+      "displayName": "Pipeline Groups configuration (spans)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.metrics.pipeline-groups",
+      "displayName": "Pipeline Groups configuration (metrics)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.metrics.ingest-sources",
+      "displayName": "Ingest sources configuration (metrics)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.system.events.ingest-sources",
+      "displayName": "Ingest sources configuration (system.events)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.events.security.pipeline-groups",
+      "displayName": "Pipeline Groups configuration (events.security)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.davis.problems.routing",
+      "displayName": "Ingest routing configuration (davis.problems)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.bizevents.pipeline-groups",
+      "displayName": "Pipeline Groups configuration (bizevents)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.spans.ingest-sources",
+      "displayName": "Ingest sources configuration (spans)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.events.security.routing",
+      "displayName": "Ingest routing configuration (events.security)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.bizevents.data-forwarding",
+      "displayName": "Data forwarding configuration (bizevents)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.davis.problems.data-forwarding",
+      "displayName": "Data forwarding configuration (davis.problems)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.system.events.data-forwarding",
+      "displayName": "Data forwarding configuration (system.events)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.spans.data-forwarding",
+      "displayName": "Data forwarding configuration (spans)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.security.events.ingest-sources",
+      "displayName": "Ingest sources configuration (security.events)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.usersessions.routing",
+      "displayName": "Ingest routing configuration (usersessions)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.security.events.pipeline-groups",
+      "displayName": "Pipeline Groups configuration (security.events)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.system.events.pipeline-groups",
+      "displayName": "Pipeline Groups configuration (system.events)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.bizevents.ingest-sources",
+      "displayName": "Ingest sources configuration (bizevents)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.metrics.pipelines",
+      "displayName": "Ingest pipelines configuration (metrics)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.davis.problems.pipeline-groups",
+      "displayName": "Pipeline Groups configuration (davis.problems)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.usersessions.pipeline-groups",
+      "displayName": "Pipeline Groups configuration (usersessions)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.spans.pipelines",
+      "displayName": "Ingest pipelines configuration (spans)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.events.pipeline-groups",
+      "displayName": "Pipeline Groups configuration (events)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.user.events.data-forwarding",
+      "displayName": "Data forwarding configuration (user.events)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.events.routing",
+      "displayName": "Ingest routing configuration (events)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.events.sdlc.pipelines",
+      "displayName": "Ingest pipelines configuration (events.sdlc)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.security.events.data-forwarding",
+      "displayName": "Data forwarding configuration (security.events)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.events.security.ingest-sources",
+      "displayName": "Ingest sources configuration (events.security)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.davis.events.routing",
+      "displayName": "Ingest routing configuration (davis.events)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.logs.pipeline-groups",
+      "displayName": "Pipeline Groups configuration (logs)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.events.ingest-sources",
+      "displayName": "Ingest sources configuration (events)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.usersessions.ingest-sources",
+      "displayName": "Ingest sources configuration (usersessions)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.user.events.ingest-sources",
+      "displayName": "Ingest sources configuration (user.events)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.events.security.data-forwarding",
+      "displayName": "Data forwarding configuration (events.security)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.user.events.routing",
+      "displayName": "Ingest routing configuration (user.events)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.bizevents.routing",
+      "displayName": "Ingest routing configuration (bizevents)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.events.pipelines",
+      "displayName": "Ingest pipelines configuration (events)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.user.events.pipelines",
+      "displayName": "Ingest pipelines configuration (user.events)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.events.sdlc.ingest-sources",
+      "displayName": "Ingest sources configuration (events.sdlc)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.security.events.pipelines",
+      "displayName": "Ingest pipelines configuration (security.events)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.system.events.routing",
+      "displayName": "Ingest routing configuration (system.events)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.davis.events.ingest-sources",
+      "displayName": "Ingest sources configuration (davis.events)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.system.events.pipelines",
+      "displayName": "Ingest pipelines configuration (system.events)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.metrics.data-forwarding",
+      "displayName": "Data forwarding configuration (metrics)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.davis.problems.pipelines",
+      "displayName": "Ingest pipelines configuration (davis.problems)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.usersessions.pipelines",
+      "displayName": "Ingest pipelines configuration (usersessions)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.davis.problems.ingest-sources",
+      "displayName": "Ingest sources configuration (davis.problems)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.logs.pipelines",
+      "displayName": "Ingest pipelines configuration (logs)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.events.sdlc.pipeline-groups",
+      "displayName": "Pipeline Groups configuration (events.sdlc)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.logs.ingest-sources",
+      "displayName": "Ingest sources configuration (logs)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.metrics.routing",
+      "displayName": "Ingest routing configuration (metrics)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.events.sdlc.routing",
+      "displayName": "Ingest routing configuration (events.sdlc)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.davis.events.pipeline-groups",
+      "displayName": "Pipeline Groups configuration (davis.events)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.events.sdlc.data-forwarding",
+      "displayName": "Data forwarding configuration (events.sdlc)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.logs.routing",
+      "displayName": "Ingest routing configuration (logs)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.user.events.pipeline-groups",
+      "displayName": "Pipeline Groups configuration (user.events)",
+      "latestSchemaVersion": "1.52"
+    },
+    {
+      "schemaId": "builtin:openpipeline.davis.events.data-forwarding",
+      "displayName": "Data forwarding configuration (davis.events)",
+      "latestSchemaVersion": "1.52"
+    }
+  ],
+  "totalCount": 304
+}

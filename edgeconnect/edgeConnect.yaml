@@ -1,0 +1,7 @@
+name: bizobs-generator
+api_endpoint_host: YOUR_TENANT_ID.apps.dynatrace.com
+oauth:
+  client_id: YOUR_OAUTH_CLIENT_ID
+  client_secret: YOUR_OAUTH_CLIENT_SECRET
+  resource: urn:dtenvironment:YOUR_TENANT_ID
+  endpoint: https://sso.dynatrace.com/sso/oauth2/token

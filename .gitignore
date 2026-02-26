@@ -1,0 +1,96 @@
+# BizObs Application .gitignore
+
+# Node.js dependencies and runtime
+node_modules/
+npm-debug.log*
+yarn-error.log*
+yarn-debug.log*
+.npm
+package-lock.json
+
+# TypeScript compiled output
+dist/
+
+# Environment and secrets
+.env
+.env.*
+*.env
+
+# Logs, PIDs, and runtime files
+*.log
+logs/
+server.log
+server.pid
+nohup.out
+
+# Ollama (installed via quick-deploy.sh, not committed)
+ollama
+.ollama/
+/usr/local/bin/ollama
+
+# AI Models (4.9 GB - downloaded on deploy, too large for git)
+*.gguf
+*.bin
+models/
+/tmp/ollama-pull.log
+
+# Dynatrace and sensitive configuration (SECURITY)
+*oneagent*
+*dynatrace*config*
+*.dt-config
+configure-dynatrace.*
+apply-dynatrace-config.*
+*api-token*
+*secret*
+*key*
+*credential*
+
+# Runtime artifacts and temporary files
+services/.dynamic-runners/
+.DS_Store
+*.swp
+*.swo
+*~
+
+# IDE and editor files
+.vscode/
+.idea/
+*.iml
+
+# Coverage and testing
+coverage/
+*.lcov
+.nyc_output/
+
+# Build outputs
+dist/
+build/
+out/
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+
+# External projects (not part of BizObs)
+../vegas-casino/
+../vegas-casino*/
+vegas-casino/
+
+# Backup directories and backup files
+*-backup/
+*.backup*
+*.bak*
+.tmp-*/
+temp/
+tmp/
+Dynatrace-OneAgent-Linux-*.sh
+
+# External knowledge base downloads
+ai-agent-knowledge-base-main*/
+.dt-credentials.json
+.port-allocations.json
+
+# Dynatrace AppEngine tokens and runtime state (NEVER commit)
+.dt-app/.tokens.json
+.dt-app/tokens.json
+.chaos-state.json

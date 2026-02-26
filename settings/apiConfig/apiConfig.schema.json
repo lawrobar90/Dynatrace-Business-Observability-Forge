@@ -1,0 +1,62 @@
+{
+  "dynatrace": "1",
+  "schemaId": "app:my.bizobs.generator:api-config",
+  "displayName": "BizObs Generator API Configuration",
+  "version": "1.1",
+  "multiObject": false,
+  "maxObjects": 1,
+  "allowedScopes": ["app"],
+  "description": "API connection settings and checklist state for the BizObs Generator service",
+  "properties": {
+    "apiHost": {
+      "displayName": "API Host",
+      "description": "The hostname or IP address of the BizObs Generator service",
+      "type": "text",
+      "default": "localhost",
+      "maxLength": 255,
+      "nullable": false
+    },
+    "apiPort": {
+      "displayName": "API Port",
+      "description": "The port number of the BizObs Generator service",
+      "type": "text",
+      "default": "8080",
+      "maxLength": 10,
+      "nullable": false
+    },
+    "apiProtocol": {
+      "displayName": "Protocol",
+      "description": "HTTP or HTTPS protocol for the API connection",
+      "type": {
+        "$ref": "#/enums/Protocol"
+      },
+      "default": "http",
+      "nullable": false
+    },
+    "enableAutoGeneration": {
+      "displayName": "Enable Auto Generation",
+      "description": "Automatically generate services when JSON response is validated",
+      "type": "boolean",
+      "default": false,
+      "nullable": false
+    },
+    "checklistState": {
+      "displayName": "Checklist State",
+      "description": "JSON-serialized Get Started checklist state that persists across app updates",
+      "type": "text",
+      "default": "{}",
+      "maxLength": 4096,
+      "nullable": true
+    }
+  },
+  "enums": {
+    "Protocol": {
+      "displayName": "Protocol",
+      "type": "enum",
+      "items": [
+        { "value": "http", "displayName": "HTTP" },
+        { "value": "https", "displayName": "HTTPS" }
+      ]
+    }
+  }
+}

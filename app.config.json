@@ -1,0 +1,67 @@
+{
+  "$schema": "./.dt-app/app.config.schema.json",
+  "environmentUrl": "https://YOUR_TENANT_ID.apps.dynatrace.com/",
+  "app": {
+    "id": "my.bizobs.generator",
+    "name": "Business Observability Forge",
+    "version": "2.9.28",
+    "description": "AI-powered Business Observability — generate and observe journeys",
+    "scopes": [
+      {
+        "name": "environment-api",
+        "comment": "Required for DQL queries and entity access"
+      },
+      {
+        "name": "storage:logs:read",
+        "comment": "Read service logs"
+      },
+      {
+        "name": "storage:events:read",
+        "comment": "Read Dynatrace events"
+      },
+      {
+        "name": "app-settings:objects:read",
+        "comment": "Read app settings for stored API configuration"
+      },
+      {
+        "name": "app-settings:objects:write",
+        "comment": "Write app settings for storing API configuration"
+      },
+      {
+        "name": "app-engine:edge-connects:read",
+        "comment": "Read EdgeConnect configurations"
+      },
+      {
+        "name": "app-engine:edge-connects:write",
+        "comment": "Create and update EdgeConnect configurations"
+      },
+      {
+        "name": "app-engine:edge-connects:delete",
+        "comment": "Delete EdgeConnect configurations"
+      },
+      {
+        "name": "oauth2:clients:manage",
+        "comment": "Create OAuth clients for EdgeConnect auto-generated credentials"
+      },
+      {
+        "name": "settings:objects:read",
+        "comment": "Read builtin settings for auto-detecting OpenPipeline, BizEvents capture, and OneAgent features"
+      },
+      {
+        "name": "settings:objects:write",
+        "comment": "Create builtin settings (BizEvents capture rules, OneAgent feature flags) from Get Started"
+      },
+      {
+        "name": "storage:entities:read",
+        "comment": "DQL query for dt.entity.host to verify OneAgent is installed on the configured host"
+      }
+    ],
+    "settings": {
+      "apiConfig": {
+        "name": "API Configuration",
+        "description": "Configure the connection to the BizObs Generator service",
+        "schemaIds": ["app:my.bizobs.generator:api-config"]
+      }
+    }
+  }
+}
