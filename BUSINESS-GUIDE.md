@@ -1,0 +1,199 @@
+# Business Guide — Business Observability Forge
+
+> A guide for business stakeholders, executives, and non-technical audiences. Lead with the *why*, show the value, tell the story.
+
+---
+
+## The Problem: You Can't Protect Revenue You Can't See
+
+Every business runs on customer journeys — a patient accessing care, a customer signing up for broadband, an investor opening an account. These journeys span multiple systems, teams, and technologies.
+
+When something breaks in one of those systems, the business impact is invisible:
+
+- **IT sees:** "Service X has a 500 error rate of 12%"
+- **The business sees:** "Revenue is down 8% this quarter and we don't know why"
+
+There's a gap between what technology teams monitor and what the business actually cares about. Traditional observability tells you *what broke*. Business observability tells you *what it cost you*.
+
+---
+
+## What the Business Observability Forge Does
+
+The Forge bridges that gap. It's a platform that:
+
+1. **Models your real customer journeys** — from first click to final transaction
+2. **Generates realistic business traffic** — so you can see what observability looks like at scale
+3. **Connects technical failures to business outcomes** — every error has a revenue number attached
+4. **Demonstrates AI-powered resilience** — chaos injection, automatic detection, and self-healing
+
+It runs inside **Dynatrace** — the same platform your teams already use for monitoring — so there's nothing new to learn, no new tool to adopt.
+
+---
+
+## Why Should You Care?
+
+### 1. See Revenue Impact in Real Time
+
+Every journey step carries business metadata: transaction value, customer lifetime value, conversion probability, churn risk. When a service fails, you don't just see a red dot on a topology map — you see:
+
+> "The CheckInAndRegistration service is failing at 80%. This is blocking 340 patient journeys per hour with an estimated impact of $127,000 in delayed care revenue."
+
+That's the conversation your CTO needs to have with your CFO.
+
+### 2. Prove the Value of Observability to the Board
+
+The hardest part of selling observability internally is showing ROI. The Forge gives you a live, working demo that shows:
+
+- **Before chaos:** All journeys completing, revenue flowing, KPIs green
+- **During chaos:** One service fails → journeys break → revenue drops → Davis AI detects it
+- **After remediation:** AI agent fixes the issue → journeys recover → revenue resumes
+
+That's a 3-minute story that justifies a multi-year platform investment.
+
+### 3. De-Risk Digital Transformation
+
+Every business is digitizing customer journeys. The Forge lets you model those journeys *before* they're built, see what happens when things go wrong, and prove that your observability platform will catch it.
+
+Industries already modeled:
+
+| Industry | Example Journeys |
+|----------|-----------------|
+| **Healthcare** | Patient care access, clinical encounter, follow-up support |
+| **Financial Services** | Account opening, ISA transfers, identity verification |
+| **Banking** | Loan applications, fraud resolution |
+| **Insurance** | Claims processing, policy purchase, renewal |
+| **Retail** | Purchase, click & collect, loyalty signup |
+| **Telecommunications** | Broadband signup, service support |
+| **Media** | Bundle discovery, installation scheduling |
+| **Manufacturing** | Vehicle assembly, logistics, quality gates |
+
+### 4. Demonstrate AI-Powered Resilience
+
+The Forge includes four AI agents that show what the future of IT operations looks like:
+
+| Agent | What It Does | Business Value |
+|-------|-------------|----------------|
+| **Nemesis** | Injects controlled failures into specific services | Proves your platform detects problems before customers do |
+| **Fix-It** | Automatically diagnoses and fixes the problem | Shows mean-time-to-repair dropping from hours to seconds |
+| **Librarian** | Remembers every incident and what worked | Demonstrates organizational learning — same problem never happens twice |
+| **Dashboard** | Deploys executive dashboards with one click | Gives leadership real-time visibility without asking IT |
+
+---
+
+## The Demo Story
+
+Here's how to walk a business audience through the Forge in 10 minutes:
+
+### Act 1: "This Is Your Business" (2 minutes)
+
+Open the Forge UI inside Dynatrace. Show the **Template Library** — 24 pre-built journeys across 8 industries.
+
+> "Let's say you're Parkland Health. Your patients go through a care access journey: they recognize a need, discover available services, select a care option, check in, have their clinical encounter, and receive follow-up support. That's 6 steps, each running on a different system."
+
+Click a template. Services spin up. Auto-load begins generating traffic.
+
+> "Each step is now a real microservice, instrumented by Dynatrace, generating real business events with real revenue data. We're simulating 30–60 patient journeys per minute."
+
+### Act 2: "What Happens When Something Breaks" (3 minutes)
+
+Open the **Chaos Control** page. Select the CheckInAndRegistration service. Inject `enable_errors` at 80%.
+
+> "Imagine your check-in system starts failing. Maybe a database connection pool is exhausted, maybe a third-party integration is down. 80% of patients can't check in."
+
+Switch to Dynatrace:
+- **Services view** — the CheckInAndRegistration service goes red
+- **Business events** — journey completions drop
+- **Problems** — Davis AI opens a problem, correlating the CUSTOM_DEPLOYMENT event with the error spike
+
+> "Dynatrace didn't just detect an error. It correlated the root cause — our chaos injection event — with the business impact. It knows *which* journeys are affected and *what* the revenue impact is."
+
+### Act 3: "AI Fixes It Before You Even Know" (3 minutes)
+
+Open the **Fix-It Agent** page. Click "Run Diagnosis."
+
+> "The Fix-It agent queries Dynatrace for the active problem, reads the logs, checks the topology, and figures out that the CheckInAndRegistration service has artificially elevated error flags."
+
+The agent proposes a fix: reset the feature flags. Click "Execute."
+
+> "In 4 seconds, the agent diagnosed the issue, proposed a fix, executed it, verified the service recovered, and logged the entire incident to organizational memory. The Librarian agent now knows: 'When CheckInAndRegistration has high error rates caused by feature flag overrides, the fix is to reset the flags.' Next time, it'll be even faster."
+
+### Act 4: "The Executive View" (2 minutes)
+
+Show the Dynatrace dashboard with:
+- Journey completion rates by company
+- Revenue impact over time
+- Service health heatmap
+- Chaos injection markers on the timeline
+
+> "This is what your CTO sees. Not 'Service X is down.' Instead: 'Patient care access journeys dropped 80% for 4 minutes, estimated revenue impact $8,400, automatically remediated by AI agent, root cause logged for future prevention.'"
+
+---
+
+## Key Differentiators
+
+| Traditional Monitoring | Business Observability Forge |
+|----------------------|------------------------------|
+| "Service X is down" | "Patient check-in is failing, blocking 340 journeys/hour" |
+| Manual incident response | AI agent detects, diagnoses, and fixes in seconds |
+| Siloed technical metrics | Business KPIs tied to every transaction |
+| Dashboard built by hand over weeks | One-click AI-generated executive dashboards |
+| No organizational memory | Every incident recorded, every fix learned |
+| Static test data | Dynamic, realistic traffic across 8 industries |
+
+---
+
+## What This Means for Your Organization
+
+### For the CTO
+"I can show the board exactly how our observability investment protects revenue. Every dollar we spend on Dynatrace correlates to faster detection, faster resolution, and fewer customer-impacting incidents."
+
+### For the VP of Engineering
+"My teams get pre-built journey models for their verticals. They can prove chaos resilience before go-live, and the AI agents reduce toil by handling routine remediation automatically."
+
+### For the Business Unit Leader
+"I can see my customer journeys in real time. When something breaks, I know the revenue impact immediately — not in next month's report. And the AI fixes it before my customers notice."
+
+### For the Dynatrace Champion
+"This is the most compelling business observability demo I've ever seen. It turns a technical monitoring conversation into a business value conversation in 3 minutes."
+
+---
+
+## Getting Started
+
+The Forge runs as a Dynatrace App inside your tenant. Your SE or partner can have it deployed in under 30 minutes.
+
+**What you need:**
+- A Dynatrace tenant (Sprint, Managed, or SaaS)
+- A host to run the engine (EC2, VM, or GitHub Codespace)
+- 30 minutes for initial setup
+
+**What you get:**
+- 24 industry journey templates ready to go
+- Real microservices generating real Dynatrace data
+- AI-powered chaos and remediation demo
+- Executive dashboards deployable in one click
+
+The full technical setup guide is in [TECHNICAL-GUIDE.md](TECHNICAL-GUIDE.md).
+
+---
+
+## FAQ
+
+**Q: Is this real data or synthetic?**
+A: The services are real Node.js microservices instrumented by Dynatrace OneAgent. The business events, traces, and metrics are real — generated with realistic profiles, randomized timing, and actual HTTP calls between services. It's the same data shape your production systems would produce.
+
+**Q: Can I model my own customer journeys?**
+A: Yes. You can create custom journeys through the UI or import a JSON configuration. The Forge supports any multi-step journey with custom business metadata.
+
+**Q: Does this require Dynatrace?**
+A: The engine can run standalone, but the full value — business events, Davis AI correlation, executive dashboards, EdgeConnect tunnel — requires a Dynatrace tenant.
+
+**Q: How long does the demo take to set up?**
+A: About 30 minutes for first-time setup. After that, launching a demo is one click from the Template Library.
+
+**Q: Can I use this for a customer demo?**
+A: Absolutely. Pick the industry templates that match your customer's vertical, run the 10-minute demo story above, and you'll have the most compelling business observability conversation they've ever seen.
+
+---
+
+*For technical setup instructions, see [TECHNICAL-GUIDE.md](TECHNICAL-GUIDE.md).*
