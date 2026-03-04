@@ -2,7 +2,7 @@
 
 > A hands-on guide for engineers, SEs, and developers who want to get the platform running and understand what's under the hood.
 
-> **Want the fast path?** Just run `./setup.sh` — it prompts for your 4 values and does everything automatically. This guide explains what the script does and how to do it manually.
+> **Want the fast path?** Just run `./setup.sh` — it walks you through 6 guided prompts and does everything automatically. This guide explains what the script does and how to do it manually.
 
 ---
 
@@ -74,7 +74,7 @@ Before you start, make sure you have **all of these** ready:
 |---|-----------|---------|-----------------|--------------|
 | 1 | **Dynatrace Tenant** | Sprint or Managed | Receives all telemetry | You should have a `*.sprint.dynatracelabs.com` or `*.live.dynatrace.com` URL |
 | 2 | **Dynatrace API Token** | — | Engine sends events to DT | Create in DT: Settings → Access Tokens → Generate. Scopes: `events.ingest`, `metrics.ingest`, `openTelemetryTrace.ingest`, `entities.read` |
-| 3 | **OAuth Client** | — | EdgeConnect authenticates to DT | Create in DT: Settings → General → External Requests → Add EdgeConnect. It generates the OAuth creds and lets you **download the edgeConnect.yaml** |
+| 3 | **OAuth Client(s)** | — | EdgeConnect + app deploy | Create in DT: Settings → General → External Requests → Add EdgeConnect. It generates the OAuth creds. Optionally add deploy scopes or use a separate client. |
 | 4 | **EC2 / VM / Host** | Linux recommended | Runs the Engine server | SSH access, ports 8080–8200 open in Security Group (inbound not strictly required — EdgeConnect tunnels inbound) |
 | 5 | **Node.js** | v22+ | Server runtime | `node --version` → should show v22.x+ |
 | 6 | **Docker** | Latest | Runs EdgeConnect | `docker --version` |
@@ -96,7 +96,7 @@ Step 3–5: ./setup.sh               ← Handles EdgeConnect, app deploy, build,
 Step 6: Configure from Forge UI    ← Wire everything together (private IP + Get Started checklist)
 ```
 
-> **Shortest path:** Do Steps 1–2, then just run `./setup.sh` — it asks for your 4 values and does Steps 3–5 automatically.
+> **Shortest path:** Do Steps 1–2, then just run `./setup.sh` — it walks you through 6 guided prompts and does Steps 3–5 automatically.
 
 ---
 
@@ -116,14 +116,15 @@ npm install
 
 ### Step 2: Create Dynatrace Credentials
 
-You need **exactly 2 credentials** — an API Token and an OAuth Client:
+You need **2–3 credentials** — an API Token, an EdgeConnect OAuth Client, and optionally a separate Deploy OAuth Client:
 
 | # | Credential | Type | Where To Create | What Uses It |
-|---|-----------|------|----------------|--------------|
+|---|-----------|------|----------------|---------------|
 | A | **API Token** | `dt0c01.*` | Dynatrace tenant → Settings → Access Tokens | The **Engine server** uses this to send events/metrics to Dynatrace |
-| B | **OAuth Client** | `dt0s10.*` | Dynatrace tenant → Settings → General → External Requests → EdgeConnect | **Both** EdgeConnect (tunnel) **and** `dt-app deploy` (app deployment) |
+| B | **EdgeConnect OAuth** | `dt0s10.*` or `dt0s02.*` | Dynatrace tenant → Settings → General → External Requests → EdgeConnect | **EdgeConnect** (tunnel). Can also be used for deploy if you add the right scopes. |
+| C | **Deploy OAuth** *(optional)* | `dt0s10.*` or `dt0s02.*` | Same as B (with added scopes), or a separate client from Account Management → IAM → OAuth clients | **`dt-app deploy`** (app deployment to Dynatrace AppEngine) |
 
-> **That's it — just 2.** Credential B is used for both EdgeConnect and deploying the app. No SSO browser dance, no extra tokens. The Forge UI itself doesn't need manual credentials — its permissions come from `app.config.json` automatically.
+> **Simplest setup:** Use **one OAuth client** (B) for both EdgeConnect and deploy by adding deploy scopes to it. `setup.sh` will ask if you want to use the same or a different client.
 
 ---
 
@@ -144,34 +145,32 @@ You need **exactly 2 credentials** — an API Token and an OAuth Client:
 
 ---
 
-#### Credential B: OAuth Client (for EdgeConnect + App Deploy)
+#### Credential B: EdgeConnect OAuth Client
 
-This **single client** handles both the EdgeConnect tunnel and deploying the app. It's an **environment-level** OAuth client (`dt0s10.*`), created in your Dynatrace tenant — **not** in Account Management.
+This client is used for the EdgeConnect tunnel. Depending on your tenant, it may generate a `dt0s10.*` (environment-level) or `dt0s02.*` (account-level) client.
 
 **Create it in Dynatrace:**
 1. Go to your Dynatrace tenant
 2. **Settings → General → External Requests**
 3. Click **Add EdgeConnect** (or select an existing one)
-4. Name it (e.g. `bizobs-forge`)
+4. Name it (e.g. `bizobs-forge`) — **remember this name, it must match what the script generates**
 5. DT will generate the OAuth credentials for you and show:
-   - **OAuth client ID**: `dt0s10.XXXXX`
-   - **OAuth client secret**: `dt0s10.XXXXX.YYYYY...` (shown only once!)
+   - **OAuth client ID**: `dt0s10.XXXXX` or `dt0s02.XXXXX`
+   - **OAuth client secret**: shown only once!
    - **OAuth client resource**: `urn:dtenvironment:YOUR_TENANT_ID`
 6. **Click "Download edgeConnect.yaml"** — this gives you a pre-filled YAML with all the values
 
 > **Important:** The client secret is only shown once. Copy it or download the YAML immediately.
 
-**Then add the deploy scope to this same client:**
+**Optionally, make this same client work for deploy too:**
 1. Go to **Account Management** → **Identity & Access Management** → **OAuth clients**
-2. Find the client you just created (`dt0s10.XXXXX`)
+2. Find the client you just created
 3. Edit it and **add these scopes**:
    - `app-engine:apps:install` (required to deploy the app)
    - `app-engine:apps:run` (required to run the app)
 4. Save
 
-> **Why one client?** The External Requests page creates the client with `app-engine:edge-connects:connect` for EdgeConnect. By adding the deploy scopes to the same client, you use **one set of credentials for everything** — no SSO browser dance, no headless-server workarounds.
-
-> **You don't need to save these to any file.** `setup.sh` will ask for the client ID and secret, then automatically generates the EdgeConnect YAML and sets the deploy env vars.
+> **If you can't add deploy scopes** (e.g. the client type doesn't allow it), use a separate account-level OAuth client for deploy. `setup.sh` will ask at prompt 6/6.
 
 ---
 
@@ -201,7 +200,13 @@ npm run build:agents
 npm start
 ```
 
-> **Note:** `npx dt-app deploy` requires OAuth credentials in the environment. The easiest way is to run `./setup.sh` which sets them automatically. If you must deploy manually, source the credentials from `setup.conf` first: `. <(grep '^OAUTH' setup.conf | sed 's/^OAUTH_CLIENT_ID/export DT_APP_OAUTH_CLIENT_ID/' | sed 's/^OAUTH_CLIENT_SECRET/export DT_APP_OAUTH_CLIENT_SECRET/')`
+> **Note:** `npx dt-app deploy` requires OAuth credentials in the environment. The easiest way is to run `./setup.sh` which sets them automatically. If you must deploy manually, export the deploy credentials:
+> ```bash
+> source setup.conf
+> export DT_APP_OAUTH_CLIENT_ID="$DEPLOY_OAUTH_CLIENT_ID"
+> export DT_APP_OAUTH_CLIENT_SECRET="$DEPLOY_OAUTH_CLIENT_SECRET"
+> npx dt-app deploy
+> ```
 
 </details>
 
@@ -465,7 +470,7 @@ Welcome Tab → Step 1: Company Details → Step 2: Generate Prompts → Step 3:
 | Symptom | Cause | Fix |
 |---------|-------|-----|
 | **"Cannot reach X.X.X.X:8080"** on Config tab | You're using the **public** Elastic IP | Change to your **private IP** (`hostname -I \| awk '{print $1}'`). AWS doesn't support NAT hairpin — see Step 6a |
-| **EdgeConnect shows offline** | OAuth creds expired, wrong, or EdgeConnect not running | Check `docker logs edgeconnect-bizobs`. Re-run `./run-edgeconnect.sh`. Double-check `client_id`, `client_secret`, `resource` in YAML (Step 2B → Step 3a) |
+| **EdgeConnect shows offline** | OAuth creds wrong, name mismatch, or EdgeConnect not running | Check `docker logs edgeconnect-bizobs`. The `name:` in `edgeConnect.yaml` must match the EdgeConnect name in DT UI (e.g. `bizobs-forge`). Re-run `./setup.sh`. Double-check `client_id`, `client_secret`, `resource` in YAML (Step 2B → Step 3a) |
 | **Test connection fails but EdgeConnect is green** | Server not running, or host pattern not registered | 1) Verify server: `curl http://localhost:8080/api/health` 2) Wait 15s and retry (propagation delay) 3) Ensure private IP is the host pattern |
 | **No services in Dynatrace** | OneAgent not installed or feature flags not enabled | Run Get Started checklist in Forge UI — deploy OneAgent Feature Flags step |
 | **Forge UI shows "Connection failed"** | Server IP not configured or EdgeConnect not tunneling | Settings → Config tab → set private IP + Test. Settings → EdgeConnect tab → verify green |

@@ -447,7 +447,7 @@ sudo systemctl enable docker
 Edit the `edgeconnect/edgeConnect.yaml`:
 
 ```yaml
-name: bizobs-generator
+name: bizobs-forge
 api_endpoint_host: YOUR_TENANT_ID.apps.dynatrace.com
 oauth:
   client_id: YOUR_OAUTH_CLIENT_ID

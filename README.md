@@ -31,14 +31,15 @@ A full-stack business observability platform that dynamically creates microservi
 
 ### Prerequisites
 
-- **Dynatrace Sprint tenant** (`*.sprint.dynatracelabs.com`)
+- **Dynatrace NFR tenant** 
 - **Node.js v22+** and **Docker** on your host (EC2/VM)
 - **2 Dynatrace credentials** (see [TECHNICAL-GUIDE.md](TECHNICAL-GUIDE.md#step-2-create-dynatrace-credentials) for how to create them):
 
 | Credential | Type | Where To Create |
 |-----------|------|-----------------|
 | **API Token** | `dt0c01.*` | DT tenant → Settings → Access Tokens (scopes: `events.ingest`, `metrics.ingest`, `openTelemetryTrace.ingest`, `entities.read`) |
-| **OAuth Client** | `dt0s10.*` | DT tenant → Settings → General → External Requests → Add EdgeConnect (then add `app-engine:apps:install` + `app-engine:apps:run` scopes in Account Management → IAM → OAuth clients) |
+| **EdgeConnect OAuth** | `dt0s10.*` or `dt0s02.*` | DT tenant → Settings → General → External Requests → Add EdgeConnect. DT generates the credentials automatically. |
+| **Deploy OAuth** *(optional)* | `dt0s10.*` or `dt0s02.*` | Same client works if you add `app-engine:apps:install` + `app-engine:apps:run` scopes. Or use a separate account-level client from Account Management → IAM → OAuth clients. |
 
 ### One Command
 
@@ -46,7 +47,7 @@ A full-stack business observability platform that dynamically creates microservi
 git clone https://github.com/lawrobar90/Dynatrace-Business-Observability-Forge.git && cd Dynatrace-Business-Observability-Forge && ./setup.sh
 ```
 
-The script prompts you for 4 values (tenant ID, API token, OAuth client ID, OAuth client secret), then automatically:
+The script walks you through 6 guided prompts (environment type, tenant ID, API token, EdgeConnect OAuth, and deploy OAuth), then automatically:
 
 1. Installs npm packages
 2. Configures & starts EdgeConnect (Docker)
@@ -73,7 +74,8 @@ npm install
 
 ```bash
 # 1. Copy your EdgeConnect YAML (downloaded from DT External Requests page)
-#    Or edit edgeconnect/edgeConnect.yaml manually with your OAuth Client values
+#    Or edit edgeconnect/edgeConnect.yaml with your OAuth values
+#    Make sure the 'name:' field matches your EdgeConnect name in DT UI
 cp ~/Downloads/edgeConnect.yaml edgeconnect/edgeConnect.yaml
 
 # 2. Start EdgeConnect tunnel
