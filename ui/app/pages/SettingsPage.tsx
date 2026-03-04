@@ -46,6 +46,9 @@ export const SettingsPage = () => {
   const updateSettings = useUpdateSettings();
   const createSettings = useCreateSettings();
 
+  // Track whether the app-settings API is available (some environments don't support it)
+  const settingsAvailableRef = useRef<boolean | null>(null);
+
   // Sync settings from SDK hooks → local state
   const settingsLoadedRef = useRef(false);
   useEffect(() => {
@@ -53,6 +56,7 @@ export const SettingsPage = () => {
     if (settingsEffective.isLoading) return;
 
     if (settingsEffective.data?.items && settingsEffective.data.items.length > 0) {
+      settingsAvailableRef.current = true;
       const value = settingsEffective.data.items[0].value as any;
       setSettings({
         apiHost: value?.apiHost || DEFAULT_SETTINGS.apiHost,
@@ -63,10 +67,12 @@ export const SettingsPage = () => {
       setStatusMessage('✅ Settings loaded from Dynatrace');
       settingsLoadedRef.current = true;
     } else if (settingsEffective.isError || settingsEffective.isSuccess) {
-      // Fallback to localStorage
+      // Settings API not available or empty — use localStorage
+      if (settingsEffective.isError) settingsAvailableRef.current = false;
+      else settingsAvailableRef.current = true; // empty but working
       loadFromLocalStorage();
       setStatusMessage(settingsEffective.isError
-        ? '⚠️ Using local storage (app settings schema not deployed yet)'
+        ? '💾 Using local storage for settings'
         : 'ℹ️ No saved settings found. Using defaults.');
       settingsLoadedRef.current = true;
     }
@@ -106,55 +112,57 @@ export const SettingsPage = () => {
     setIsSaving(true);
     setStatusMessage('💾 Saving...');
 
-    // Always save to localStorage as backup
+    // Always save to localStorage
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(settings));
     localStorage.setItem('bizobs_api_host', settings.apiHost);
     localStorage.setItem('bizobs_api_port', settings.apiPort);
 
-    try {
-      const existingObj = settingsObjects.data?.items?.[0];
-      if (existingObj?.objectId && existingObj?.version) {
-        await updateSettings.execute({
-          objectId: existingObj.objectId,
-          optimisticLockingVersion: existingObj.version,
-          body: { value: settings },
-        });
-      } else {
-        await createSettings.execute({
-          body: { schemaId: SCHEMA_ID, value: settings },
-        });
-      }
-      // Refetch so hooks have fresh objectId/version
-      settingsObjects.refetch();
-      settingsEffective.refetch();
-      setStatusMessage('✅ Settings saved to Dynatrace tenant!');
-
-      // Auto-register host pattern with EdgeConnect
-      const host = settings.apiHost.trim();
-      if (host && host !== 'localhost' && host !== '127.0.0.1') {
-        try {
-          const ecRes = await functions.call('proxy-api', {
-            data: {
-              action: 'ec-update-patterns',
-              apiHost: '', apiPort: '', apiProtocol: '',
-              body: { hostPatterns: [host] },
-            },
+    // Only attempt tenant save if the API is available
+    if (settingsAvailableRef.current === true) {
+      try {
+        const existingObj = settingsObjects.data?.items?.[0];
+        if (existingObj?.objectId && existingObj?.version) {
+          await updateSettings.execute({
+            objectId: existingObj.objectId,
+            optimisticLockingVersion: existingObj.version,
+            body: { value: settings },
           });
-          const ecResult = await ecRes.json() as any;
-          if (ecResult.success && ecResult.data?.added?.length > 0) {
-            setStatusMessage(prev => `${prev}\n🔌 Auto-registered ${host} as EdgeConnect host pattern`);
-          }
-        } catch {
-          // Non-fatal
+        } else {
+          await createSettings.execute({
+            body: { schemaId: SCHEMA_ID, value: settings },
+          });
         }
+        settingsObjects.refetch();
+        settingsEffective.refetch();
+      } catch {
+        // Tenant save failed — mark as unavailable so we don't retry
+        settingsAvailableRef.current = false;
       }
-
-      setTimeout(() => navigate('/'), 800);
-    } catch (error: any) {
-      console.error('Failed to save to app settings:', error);
-      setStatusMessage(`⚠️ Saved locally. Dynatrace save failed: ${error.message}`);
     }
 
+    setStatusMessage('✅ Settings saved!');
+
+    // Auto-register host pattern with EdgeConnect
+    const host = settings.apiHost.trim();
+    if (host && host !== 'localhost' && host !== '127.0.0.1') {
+      try {
+        const ecRes = await functions.call('proxy-api', {
+          data: {
+            action: 'ec-update-patterns',
+            apiHost: '', apiPort: '', apiProtocol: '',
+            body: { hostPatterns: [host] },
+          },
+        });
+        const ecResult = await ecRes.json() as any;
+        if (ecResult.success && ecResult.data?.added?.length > 0) {
+          setStatusMessage(prev => `${prev}\n🔌 Auto-registered ${host} as EdgeConnect host pattern`);
+        }
+      } catch {
+        // Non-fatal
+      }
+    }
+
+    setTimeout(() => navigate('/'), 800);
     setIsSaving(false);
   };
 

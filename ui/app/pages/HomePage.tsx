@@ -369,6 +369,7 @@ export const HomePage = () => {
 
   // Sync settings from SDK hooks → local state (replaces manual load useEffect)
   const settingsLoadedRef = useRef(false);
+  const settingsAvailableRef = useRef<boolean | null>(null);
   useEffect(() => {
     if (settingsLoadedRef.current) return;
     // Wait for hook to finish loading
@@ -381,6 +382,7 @@ export const HomePage = () => {
     });
 
     if (settingsEffective.data?.items && settingsEffective.data.items.length > 0) {
+      settingsAvailableRef.current = true;
       const v = settingsEffective.data.items[0].value as any;
       console.log('[BizObs] Loaded from tenant:', v);
       const loaded = {
@@ -416,9 +418,9 @@ export const HomePage = () => {
 
     // Fallback to localStorage if SDK returns empty or errors
     if (settingsEffective.isError || (settingsEffective.isSuccess && (!settingsEffective.data?.items || settingsEffective.data.items.length === 0))) {
+      if (settingsEffective.isError) settingsAvailableRef.current = false;
+      else settingsAvailableRef.current = true;
       console.log('[BizObs] SDK returned empty/error — keeping localStorage values');
-      // State was already initialised from localStorage in useState(), so no need to overwrite.
-      // Just mark as loaded so detect can proceed.
       settingsLoadedRef.current = true;
     }
   }, [settingsEffective.isLoading, settingsEffective.data, settingsEffective.isError, settingsEffective.isSuccess]);
@@ -635,27 +637,28 @@ export const HomePage = () => {
     localStorage.setItem('bizobs_api_host', settingsForm.apiHost);
     localStorage.setItem('bizobs_api_port', settingsForm.apiPort);
 
-    // Save to Dynatrace tenant via SDK hooks
-    try {
-      const existingObj = settingsObjects.data?.items?.[0];
-      if (existingObj?.objectId && existingObj?.version) {
-        await updateSettings.execute({
-          objectId: existingObj.objectId,
-          optimisticLockingVersion: existingObj.version,
-          body: { value: settingsForm },
-        });
-      } else {
-        await createSettings.execute({
-          body: { schemaId: SETTINGS_SCHEMA_ID, value: settingsForm },
-        });
+    // Only attempt tenant save if the settings API is available
+    if (settingsAvailableRef.current === true) {
+      try {
+        const existingObj = settingsObjects.data?.items?.[0];
+        if (existingObj?.objectId && existingObj?.version) {
+          await updateSettings.execute({
+            objectId: existingObj.objectId,
+            optimisticLockingVersion: existingObj.version,
+            body: { value: settingsForm },
+          });
+        } else {
+          await createSettings.execute({
+            body: { schemaId: SETTINGS_SCHEMA_ID, value: settingsForm },
+          });
+        }
+        settingsObjects.refetch();
+        settingsEffective.refetch();
+      } catch {
+        settingsAvailableRef.current = false;
       }
-      // Refetch so hooks have fresh objectId/version for next save
-      settingsObjects.refetch();
-      settingsEffective.refetch();
-      setSettingsStatus('✅ Saved to Dynatrace tenant!');
-    } catch (error: any) {
-      setSettingsStatus(`⚠️ Saved locally. Tenant save failed: ${error.message}`);
     }
+    setSettingsStatus('✅ Settings saved!');
 
     setApiSettingsState({ host: settingsForm.apiHost, port: settingsForm.apiPort, protocol: settingsForm.apiProtocol });
 
