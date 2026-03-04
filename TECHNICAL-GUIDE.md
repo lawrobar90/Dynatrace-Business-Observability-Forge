@@ -175,14 +175,14 @@ Each step has a **Deploy** button that auto-configures the Dynatrace settings vi
 ### Journey Simulation Flow
 
 ```
-1. User picks a template (e.g. "Parkland Health — Care Access Journey")
+1. User picks a template (e.g. "Healthcare Provider — Patient Care Journey")
    or enters custom company details
                     │
                     ▼
 2. Engine spawns child services (one per journey step)
-   e.g. NeedRecognitionService (port 8081)
-        ServiceDiscoveryService (port 8082)
-        CareAccessSelectionService (port 8083)
+   e.g. PatientRegistrationService (port 8081)
+        TriageAndAssessmentService (port 8082)
+        ClinicalConsultationService (port 8083)
         ...
                     │
                     ▼

@@ -36,7 +36,7 @@ It runs inside **Dynatrace** — the same platform your teams already use for mo
 
 Every journey step carries business metadata: transaction value, customer lifetime value, conversion probability, churn risk. When a service fails, you don't just see a red dot on a topology map — you see:
 
-> "The CheckInAndRegistration service is failing at 80%. This is blocking 340 patient journeys per hour with an estimated impact of $127,000 in delayed care revenue."
+> "The TriageAndAssessment service is failing at 80%. This is blocking 340 patient journeys per hour with an estimated impact of $127,000 in delayed care revenue."
 
 That's the conversation your CTO needs to have with your CFO.
 
@@ -88,7 +88,7 @@ Here's how to walk a business audience through the Forge in 10 minutes:
 
 Open the Forge UI inside Dynatrace. Show the **Template Library** — 24 pre-built journeys across 8 industries.
 
-> "Let's say you're Parkland Health. Your patients go through a care access journey: they recognize a need, discover available services, select a care option, check in, have their clinical encounter, and receive follow-up support. That's 6 steps, each running on a different system."
+> "Let's say you're a healthcare provider. Your patients go through a care journey: they register, get triaged and assessed, have a clinical consultation, receive treatment, and go through discharge and follow-up. That's 6 steps, each running on a different system."
 
 Click a template. Services spin up. Auto-load begins generating traffic.
 
@@ -96,12 +96,12 @@ Click a template. Services spin up. Auto-load begins generating traffic.
 
 ### Act 2: "What Happens When Something Breaks" (3 minutes)
 
-Open the **Chaos Control** page. Select the CheckInAndRegistration service. Inject `enable_errors` at 80%.
+Open the **Chaos Control** page. Select the TriageAndAssessment service. Inject `enable_errors` at 80%.
 
-> "Imagine your check-in system starts failing. Maybe a database connection pool is exhausted, maybe a third-party integration is down. 80% of patients can't check in."
+> "Imagine your triage system starts failing. Maybe a database connection pool is exhausted, maybe a third-party integration is down. 80% of patients can't be assessed."
 
 Switch to Dynatrace:
-- **Services view** — the CheckInAndRegistration service goes red
+- **Services view** — the TriageAndAssessment service goes red
 - **Business events** — journey completions drop
 - **Problems** — Davis AI opens a problem, correlating the CUSTOM_DEPLOYMENT event with the error spike
 
@@ -111,11 +111,11 @@ Switch to Dynatrace:
 
 Open the **Fix-It Agent** page. Click "Run Diagnosis."
 
-> "The Fix-It agent queries Dynatrace for the active problem, reads the logs, checks the topology, and figures out that the CheckInAndRegistration service has artificially elevated error flags."
+> "The Fix-It agent queries Dynatrace for the active problem, reads the logs, checks the topology, and figures out that the TriageAndAssessment service has artificially elevated error flags."
 
 The agent proposes a fix: reset the feature flags. Click "Execute."
 
-> "In 4 seconds, the agent diagnosed the issue, proposed a fix, executed it, verified the service recovered, and logged the entire incident to organizational memory. The Librarian agent now knows: 'When CheckInAndRegistration has high error rates caused by feature flag overrides, the fix is to reset the flags.' Next time, it'll be even faster."
+> "In 4 seconds, the agent diagnosed the issue, proposed a fix, executed it, verified the service recovered, and logged the entire incident to organizational memory. The Librarian agent now knows: 'When TriageAndAssessment has high error rates caused by feature flag overrides, the fix is to reset the flags.' Next time, it'll be even faster."
 
 ### Act 4: "The Executive View" (2 minutes)
 
@@ -125,7 +125,7 @@ Show the Dynatrace dashboard with:
 - Service health heatmap
 - Chaos injection markers on the timeline
 
-> "This is what your CTO sees. Not 'Service X is down.' Instead: 'Patient care access journeys dropped 80% for 4 minutes, estimated revenue impact $8,400, automatically remediated by AI agent, root cause logged for future prevention.'"
+> "This is what your CTO sees. Not 'Service X is down.' Instead: 'Patient care journeys dropped 80% for 4 minutes, estimated revenue impact $8,400, automatically remediated by AI agent, root cause logged for future prevention.'"
 
 ---
 
@@ -133,7 +133,7 @@ Show the Dynatrace dashboard with:
 
 | Traditional Monitoring | Business Observability Forge |
 |----------------------|------------------------------|
-| "Service X is down" | "Patient check-in is failing, blocking 340 journeys/hour" |
+| "Service X is down" | "Patient triage is failing, blocking 340 journeys/hour" |
 | Manual incident response | AI agent detects, diagnoses, and fixes in seconds |
 | Siloed technical metrics | Business KPIs tied to every transaction |
 | Dashboard built by hand over weeks | One-click AI-generated executive dashboards |
