@@ -6,6 +6,28 @@
 
 ---
 
+### The Pitch
+
+> *"What if you could take any customer's real business journey — their exact checkout flow, their claims process, their patient care pathway — model it in minutes, spin up real instrumented microservices, and show them exactly what happens when something breaks? Not a slide deck. Not a theoretical scenario. A live, running simulation inside Dynatrace where they can watch revenue drop, watch Davis AI detect it, and watch an AI agent fix it — all in real time."*
+
+> *That's the Business Observability Forge.*
+
+---
+
+### Why It Wins Deals
+
+🎯 **It's not a demo — it's their business, running live in Dynatrace.** Every journey you build mirrors the customer's actual operations. When they see *their* checkout flow fail and *their* revenue number drop, the conversation changes from "why do we need observability?" to "how fast can we deploy this?"
+
+💰 **It quantifies the cost of downtime in their language.** Not "99.9% uptime" — but "$127,000/hour in blocked patient care revenue" or "340 abandoned loan applications per hour." That's the number that gets budget approved.
+
+🤖 **It proves AI isn't a buzzword.** Chaos injection → Davis AI detection → autonomous remediation → organizational learning. Four steps, 30 seconds, zero human intervention. That's the future of IT operations, and you can show it live.
+
+⚡ **It compresses months of proof-of-value into minutes.** Traditional POCs take weeks of integration work. The Forge generates a full multi-service environment with realistic traffic, business events, and Dynatrace telemetry — ready to demo — in under 30 minutes.
+
+🏆 **It's the most compelling business observability story in the market.** No other platform can go from "describe your customer journey" to "here's your revenue impact dashboard with AI-powered self-healing" in a single session.
+
+---
+
 | | |
 |---|---|
 | **Revenue Protection** | See the dollar impact of every outage in real time — not in next month's report |
