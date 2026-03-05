@@ -1,6 +1,6 @@
 # Business Observability Forge
 
-### Turn Customer Journeys Into Business Intelligence
+### Transform Customer Journeys Into Real-Time Business Intelligence
 
 > Model any customer journey. See the revenue impact when things break. Watch AI fix it in seconds — all inside Dynatrace.
 
@@ -8,21 +8,46 @@
 
 ---
 
-## Why Business Observability Matters
+The observability market is undergoing a seismic shift. Cloud adoption, architectural complexity, and AI-driven automation are rewriting how organisations deliver and operate digital experiences. Every vendor promises "AI-led causality," yet only a few deliver anything meaningful — and none match the depth, precision, and proven outcomes of Dynatrace.
 
-Every enterprise runs on customer journeys — checkouts, claims, onboarding flows, patient pathways. When those journeys break, the cost isn't measured in error rates or latency spikes. It's measured in lost revenue, abandoned customers, and missed SLAs.
+For customers, seeing this difference early in the conversation is transformative. When we link technical signals directly to business value — revenue, conversion, customer satisfaction, operational efficiency — we unlock a level of clarity that resonates from engineering teams to the executive suite.
 
-Most observability tools stop at the technical layer. They'll tell you a service is slow. They won't tell you that slowness is blocking 400 mortgage applications and putting $2.3M at risk this hour.
+At the peak of that capability sit **Dynatrace Business Dashboards**, which turn observability into real-time business intelligence. But creating a tailored, high-impact example for a customer usually requires time, context, and domain knowledge.
 
-**Dynatrace is the only platform that connects the full stack — from infrastructure to application to business outcome — in a single pane of glass.** Real-time business events flow through the same platform that traces every transaction, detects anomalies with AI, and triggers automated remediation. No stitching tools together. No dashboards that lag behind reality. One platform, from code to customer to cash.
-
-That's what makes business observability unique to Dynatrace — and it's what turns a monitoring conversation into a boardroom conversation.
+**That's why we created the Business Observability Forge.**
 
 ---
 
-## What Challenges Does the Forge Solve?
+## What Is the Business Observability Forge?
 
-Telling the business observability story is powerful. *Showing* it is hard.
+The Business Observability Forge is a rapid value experience that takes any critical customer journey or business process — whether a checkout flow, a claims lifecycle, a manufacturing line, or a patient-care pathway — and brings it to life inside Dynatrace as a **live, simulated business dashboard**.
+
+Using a blend of customer-facing research (public web content, annual reports, strategy decks), internal insights, and AI-assisted discovery, the Forge identifies an organisation's top business priorities, KPIs, and strategic programs. This gives us a clear understanding of what matters most at the executive level.
+
+From there, we select a representative journey and transform it into a compelling, customer-specific business observability view, showing:
+
+- How the journey works end to end
+- Which KPIs define success
+- How technical performance and business outcomes connect
+- Where value is created — or lost — in real time
+
+The result is a powerful, context-rich dashboard that mirrors the customer's world and demonstrates how Dynatrace turns observability into meaningful, measurable business impact.
+
+All we need to do is choose a journey (or describe one in plain language). The Forge spins up real services, generates realistic traffic, and connects every failure to a revenue number. When something breaks, you don't see *"Service X is down"* — you see *"Patient triage is failing, 340 journeys blocked, $127K at risk."*
+
+Then an AI agent diagnoses and fixes it — automatically, in seconds.
+
+24 ready-made templates across healthcare, banking, retail, insurance, telecoms, and more — or generate a bespoke journey for any customer using AI.
+
+---
+
+## Why It Matters
+
+- **Shows value early.** Customers immediately see how Dynatrace aligns to their strategy — not just their infrastructure.
+- **Bridges business and engineering.** The dashboard surfaces shared metrics that resonate across roles.
+- **Tailored, not generic.** Every Forge example is customised to real customer priorities.
+- **Fast and low effort.** With our AI-driven search scripts and proven playbooks, creating these dashboards requires minimal inputs while delivering maximum impact.
+- **Sets the stage for strategic partnership.** Customers see Dynatrace not as a tooling choice, but as a platform for operational excellence and business transformation.
 
 | Challenge | What the Forge Does |
 |---|---|
@@ -34,29 +59,15 @@ Telling the business observability story is powerful. *Showing* it is hard.
 
 ---
 
-## What It Is
-
-The Business Observability Forge takes any customer journey — a checkout flow, a claims process, a patient care pathway — and turns it into a **live simulation inside Dynatrace**.
-
-You choose a journey (or describe one in plain language). The Forge spins up real services, generates realistic traffic, and connects every failure to a revenue number. When something breaks, you don't see *"Service X is down"* — you see *"Patient triage is failing, 340 journeys blocked, $127K at risk."*
-
-Then an AI agent diagnoses and fixes it — automatically, in seconds.
-
-24 ready-made templates across healthcare, banking, retail, insurance, telecoms, and more — or generate a bespoke journey for any customer using AI.
-
----
-
-## Why It's Valuable
-
-### Pre-Sales
+## Pre-Sales
 
 **The most compelling business observability demo in the market.** Model a prospect's real customer journey, show live revenue impact when things break, and demonstrate AI-powered self-healing — all in a single meeting. It turns a technical monitoring pitch into a business value conversation. The fact that it mirrors *their* journey, not a generic example, is what closes deals.
 
-### Post-Sales
+## Post-Sales
 
 **Accelerate time to value after the contract is signed.** Use the Forge to model the customer's actual journeys during onboarding, show them exactly what Dynatrace will look like with their data, and prove the platform catches and resolves issues before customers notice. It's a fast track from "we just bought Dynatrace" to "here's the ROI."
 
-### Demoability & Internal Training
+## Demoability & Internal Training
 
 **Give every SE and partner the same powerful story.** No more building bespoke demos from scratch. Anyone can pick a template, launch a full environment in 30 minutes, and deliver a polished business observability walkthrough. It's also ideal for internal enablement — new team members can see the full Dynatrace platform story (services, business events, AI detection, remediation, dashboards) running end-to-end on day one.
 

@@ -15,7 +15,7 @@ export const App = () => {
         <Route path="/chaos" element={<ChaosControl />} />
         <Route path="/fixit" element={<FixItAgent />} />
         <Route path="/settings" element={<SettingsPage />} />
-        <Route path="/guide" element={<DemoGuide />} />
+        <Route path="/demo-guide" element={<DemoGuide />} />
       </Routes>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { Page } from '@dynatrace/strato-components-preview/layouts';
 import { Flex } from '@dynatrace/strato-components/layouts';
 import { Heading, Paragraph, Strong } from '@dynatrace/strato-components/typography';
@@ -2665,6 +2666,22 @@ export const HomePage = () => {
                   )}
                 </div>
               </div>
+
+              {/* Demo Guide */}
+              <Link
+                to="/demo-guide"
+                style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
+                  width: 140, padding: '8px 0', borderRadius: 8,
+                  background: 'linear-gradient(135deg, rgba(0,212,255,0.12), rgba(108,44,156,0.06))',
+                  border: '1.5px solid rgba(0,180,220,0.4)',
+                  color: '#00b4dc', fontWeight: 600, fontSize: 12,
+                  cursor: 'pointer', transition: 'all 0.2s ease',
+                  textDecoration: 'none',
+                }}
+              >
+                <span style={{ fontSize: 14 }}>📖</span> Demo Guide
+              </Link>
 
               {/* Settings */}
               <div style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', gap: 3 }}>
