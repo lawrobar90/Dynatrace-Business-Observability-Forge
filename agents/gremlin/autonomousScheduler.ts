@@ -84,7 +84,7 @@ export function startScheduler(customConfig?: Partial<SchedulerConfig>): void {
     }
   }, schedulerConfig.intervalMs);
 
-  log.info(`✅ Gremlin Scheduler running (warmup: ${warmupMinutes} min, then chaos begins)`);
+  log.info(`✅ Nemesis Scheduler running (warmup: ${warmupMinutes} min, then chaos begins)`);
 }
 
 /**
@@ -99,7 +99,7 @@ export function stopScheduler(): void {
   clearInterval(schedulerInterval);
   schedulerInterval = null;
   isRunning = false;
-  log.info('🛑 Gremlin Scheduler stopped');
+  log.info('🛑 Nemesis Scheduler stopped');
 }
 
 /**

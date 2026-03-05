@@ -4,7 +4,7 @@
   "app": {
     "id": "my.bizobs.generator.master",
     "name": "Business Observability Forge",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description": "AI-powered Business Observability — generate and observe journeys",
     "scopes": [
       {

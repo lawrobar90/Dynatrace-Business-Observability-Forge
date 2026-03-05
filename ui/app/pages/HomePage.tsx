@@ -4,7 +4,6 @@ import { Page } from '@dynatrace/strato-components-preview/layouts';
 import { Flex } from '@dynatrace/strato-components/layouts';
 import { Heading, Paragraph, Strong } from '@dynatrace/strato-components/typography';
 import { Button } from '@dynatrace/strato-components/buttons';
-import { IntentButton } from '@dynatrace/strato-components-preview/buttons';
 import { TextInput } from '@dynatrace/strato-components-preview/forms';
 import { TitleBar } from '@dynatrace/strato-components-preview/layouts';
 import Colors from '@dynatrace/strato-design-tokens/colors';
@@ -13,7 +12,7 @@ import { edgeConnectClient } from '@dynatrace-sdk/client-app-engine-edge-connect
 
 import { functions } from '@dynatrace-sdk/app-utils';
 import { getEnvironmentUrl } from '@dynatrace-sdk/app-environment';
-import type { IntentPayload } from '@dynatrace-sdk/navigation';
+
 import { generateCsuitePrompt, generateJourneyPrompt, PROMPT_DESCRIPTIONS } from '../constants/promptTemplates';
 import { INITIAL_TEMPLATES, InitialTemplate } from '../constants/initialTemplates';
 import { FORGE_LOGO } from '../constants/forgeLogo';
@@ -166,7 +165,7 @@ export const HomePage = () => {
   const [clearingDormantCompany, setClearingDormantCompany] = useState<string | null>(null);
 
   // Settings modal tab state
-  const [settingsTab, setSettingsTab] = useState<'config' | 'guide' | 'edgeconnect'>('config');
+  const [settingsTab, setSettingsTab] = useState<'config' | 'edgeconnect'>('config');
 
   // EdgeConnect state
   const [edgeConnects, setEdgeConnects] = useState<any[]>([]);
@@ -323,29 +322,7 @@ export const HomePage = () => {
     toastTimerRef.current = setTimeout(() => setToastVisible(false), duration);
   }, []);
 
-  /** Build IntentPayload for Notebook button — tags query for view-query intent */
-  const getNotebookPayload = useCallback((services: RunningService[]): IntentPayload => {
-    const serviceNames = services.map(s => `"${(s.baseServiceName || s.service).toLowerCase()}"`).join(', ');
 
-    // Service tags table (smartscapeNodes with dynamic tag parsing)
-    const tagQuery = [
-      `smartscapeNodes SERVICE`,
-      `| filter in(entity.name, array(${serviceNames}))`,
-      `| fields entity.name, cnt=1, tags=toString(tags)`,
-      `| parse tags, "'{' ARRAY{STRUCTURE{DQS:tag ':' JSON_VALUE:value (', '|'}')}:i}{1,}:parsedTags"`,
-      `| expand parsedTags`,
-      `| filterOut isNull(parsedTags)`,
-      `| summarize {tcnt=count()}, by: {entity.name, tag=parsedTags[tag]}`,
-      `| summarize {tags=collectArray(record(tag,tcnt))}, by:{entity.name}`,
-      `| fieldsAdd tags=toString(arraySort(tags))`,
-      `| parse tags, """'[' KVP{ '{\\"tag\\":\\\"' LD:key '\\", \\"tcnt\\":' JSON_VALUE:value ('}, '|'}]')}:tags"""`,
-      `| fieldsFlatten tags, prefix:"tag."`,
-      `| fieldsRemove tags`,
-      `| sort entity.name asc`,
-    ].join('\n');
-
-    return { 'dt.query': tagQuery };
-  }, []);
 
   // Load saved templates from localStorage on mount
   useEffect(() => {
@@ -1154,7 +1131,6 @@ export const HomePage = () => {
     setIsSmartChaosRunning(false);
   };
 
-  // openNotebookForCompany replaced by IntentButton + getNotebookPayload helper
 
   // Generate prompts when moving to step 2
   useEffect(() => {
@@ -2816,7 +2792,6 @@ export const HomePage = () => {
                 <Flex alignItems="center" gap={8}>
                   {/* Tab switcher */}
                   <button onClick={() => setSettingsTab('config')} style={{ padding: '4px 14px', borderRadius: 6, fontSize: 12, fontWeight: 600, cursor: 'pointer', border: 'none', background: settingsTab === 'config' ? 'rgba(255,255,255,0.25)' : 'transparent', color: 'white', transition: 'all 0.2s' }}>⚙️ Config</button>
-                  <button onClick={() => setSettingsTab('guide')} style={{ padding: '4px 14px', borderRadius: 6, fontSize: 12, fontWeight: 600, cursor: 'pointer', border: 'none', background: settingsTab === 'guide' ? 'rgba(255,255,255,0.25)' : 'transparent', color: 'white', transition: 'all 0.2s' }}>📖 Get Started</button>
                   <button onClick={() => { setSettingsTab('edgeconnect'); loadEdgeConnects(); }} style={{ padding: '4px 14px', borderRadius: 6, fontSize: 12, fontWeight: 600, cursor: 'pointer', border: 'none', background: settingsTab === 'edgeconnect' ? 'rgba(255,255,255,0.25)' : 'transparent', color: 'white', transition: 'all 0.2s' }}>🔌 EdgeConnect</button>
                   <button onClick={() => setShowSettingsModal(false)} style={{ background: 'none', border: 'none', color: 'white', fontSize: 20, cursor: 'pointer', padding: 4, marginLeft: 8 }}>✕</button>
                 </Flex>
@@ -2873,160 +2848,6 @@ export const HomePage = () => {
                 </Button>
                 <Button onClick={() => { setSettingsForm(DEFAULT_SETTINGS); setSettingsStatus('🔄 Reset to defaults'); }} style={{ flex: 1 }}>🔄 Reset</Button>
               </Flex>
-            </div>
-            ) : settingsTab === 'guide' ? (
-            /* ── Get Started Guide Tab ─── */
-            <div style={{ padding: 24 }}>
-              <div style={{ marginBottom: 20 }}>
-                <Flex alignItems="center" gap={8} style={{ marginBottom: 12 }}>
-                  <span style={{ fontSize: 22 }}>🚀</span>
-                  <Heading level={5}>Get Started Guide</Heading>
-                </Flex>
-                <Paragraph style={{ fontSize: 13, opacity: 0.8, marginBottom: 16 }}>
-                  Follow these steps to configure and start generating AI-driven business observability services.
-                </Paragraph>
-              </div>
-
-              {/* Step 1: Configure Connection */}
-              <div style={{ marginBottom: 16, padding: 16, borderRadius: 10, border: `1px solid ${Colors.Border.Neutral.Default}`, background: 'rgba(108,44,156,0.04)' }}>
-                <Flex alignItems="flex-start" gap={12}>
-                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: `linear-gradient(135deg, ${Colors.Theme.Primary['70']}, #00d4ff)`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 14, fontWeight: 700, flexShrink: 0 }}>1</div>
-                  <div>
-                    <Strong style={{ fontSize: 14 }}>Configure API Connection</Strong>
-                    <Paragraph style={{ fontSize: 12, opacity: 0.7, marginTop: 4 }}>
-                      Click the <Strong>⚙️ Settings</Strong> button in the title bar (or switch to the "Config" tab above). Enter your BizObs Forge server's <Strong>host IP</Strong> and <Strong>port</Strong> (default: 8080). Use <Strong>HTTP</Strong> for local/internal servers, <Strong>HTTPS</Strong> for production. Click <Strong>🔌 Test</Strong> to verify connectivity, then <Strong>💾 Save</Strong>.
-                    </Paragraph>
-                  </div>
-                </Flex>
-              </div>
-
-              {/* Step 2: Choose or Create Template */}
-              <div style={{ marginBottom: 16, padding: 16, borderRadius: 10, border: `1px solid ${Colors.Border.Neutral.Default}`, background: 'rgba(0,212,255,0.04)' }}>
-                <Flex alignItems="flex-start" gap={12}>
-                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: `linear-gradient(135deg, #00d4ff, ${Colors.Theme.Success['70']})`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 14, fontWeight: 700, flexShrink: 0 }}>2</div>
-                  <div>
-                    <Strong style={{ fontSize: 14 }}>Enter Customer Details</Strong>
-                    <Paragraph style={{ fontSize: 12, opacity: 0.7, marginTop: 4 }}>
-                      On the <Strong>Welcome</Strong> tab, click a pre-built template from the sidebar (e.g., "TechCorp", "RetailMax") or start fresh. Enter a <Strong>Company Name</Strong>, <Strong>Domain</Strong>, and optionally specific <Strong>Requirements</Strong>. Click <Strong>Next</Strong> to generate AI prompts.
-                    </Paragraph>
-                  </div>
-                </Flex>
-              </div>
-
-              {/* Step 3: Generate Prompts */}
-              <div style={{ marginBottom: 16, padding: 16, borderRadius: 10, border: `1px solid ${Colors.Border.Neutral.Default}`, background: 'rgba(115,190,40,0.04)' }}>
-                <Flex alignItems="flex-start" gap={12}>
-                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: `linear-gradient(135deg, ${Colors.Theme.Success['70']}, #73be28)`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 14, fontWeight: 700, flexShrink: 0 }}>3</div>
-                  <div>
-                    <Strong style={{ fontSize: 14 }}>Use AI Prompts</Strong>
-                    <Paragraph style={{ fontSize: 12, opacity: 0.7, marginTop: 4 }}>
-                      On the <Strong>Generate Prompts</Strong> tab, you'll see two prompts: <Strong>C-Suite Prompt</Strong> (defines the business) and <Strong>Journey Prompt</Strong> (defines the customer journey). Copy each prompt, paste into an external AI assistant (ChatGPT, Gemini, Microsoft Copilot), and paste the JSON response back.
-                    </Paragraph>
-                  </div>
-                </Flex>
-              </div>
-
-              {/* Step 4: Generate & Monitor Services */}
-              <div style={{ marginBottom: 16, padding: 16, borderRadius: 10, border: `1px solid ${Colors.Border.Neutral.Default}`, background: 'rgba(220,50,47,0.04)' }}>
-                <Flex alignItems="flex-start" gap={12}>
-                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg, #dc322f, #b58900)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 14, fontWeight: 700, flexShrink: 0 }}>4</div>
-                  <div>
-                    <Strong style={{ fontSize: 14 }}>Generate & Monitor Services</Strong>
-                    <Paragraph style={{ fontSize: 12, opacity: 0.7, marginTop: 4 }}>
-                      Click <Strong>Generate Services</Strong> to spawn live Node.js services on the BizObs server. Use the <Strong>🖥️ Services</Strong> button in the title bar to monitor running services, stop them by company, or clear dormant ones. Dormant services remember their metadata so they restart faster.
-                    </Paragraph>
-                  </div>
-                </Flex>
-              </div>
-
-              {/* Network & Firewall Configuration */}
-              <div style={{ marginBottom: 16, padding: 16, borderRadius: 10, border: `1px solid rgba(220,160,0,0.4)`, background: 'rgba(220,160,0,0.04)' }}>
-                <Flex alignItems="flex-start" gap={12}>
-                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg, #b58900, #dc322f)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 14, fontWeight: 700, flexShrink: 0 }}>🔒</div>
-                  <div style={{ flex: 1 }}>
-                    <Strong style={{ fontSize: 14 }}>Network & Firewall Configuration</Strong>
-                    <Paragraph style={{ fontSize: 12, opacity: 0.7, marginTop: 4 }}>
-                      This app runs as a <Strong>Dynatrace AppEngine</Strong> serverless function. When it calls your BizObs Forge server, the request originates from <Strong>Dynatrace’s cloud infrastructure</Strong>, not your browser.
-                    </Paragraph>
-
-                    {/* EdgeConnect — Recommended Approach */}
-                    <div style={{ marginTop: 10, padding: 14, borderRadius: 10, background: 'rgba(0,180,0,0.06)', border: '1.5px solid rgba(0,180,0,0.35)', fontSize: 12, lineHeight: 1.8 }}>
-                      <Flex alignItems="center" gap={8} style={{ marginBottom: 8 }}>
-                        <span style={{ fontSize: 16 }}>⭐</span>
-                        <Strong style={{ fontSize: 13 }}>Recommended: Dynatrace EdgeConnect</Strong>
-                        <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 4, background: 'rgba(0,180,0,0.15)', color: '#2e7d32', fontWeight: 700 }}>BEST PRACTICE</span>
-                      </Flex>
-                      <div>
-                        Dynatrace does not use static egress IP addresses for AppEngine traffic. The recommended solution is to set up <Strong>EdgeConnect</Strong> — a Dynatrace-managed network proxy.
-                      </div>
-                      <div style={{ marginTop: 8, padding: 10, borderRadius: 8, background: 'rgba(0,0,0,0.04)', border: `1px solid ${Colors.Border.Neutral.Default}` }}>
-                        <Strong style={{ display: 'block', marginBottom: 4 }}>How it works:</Strong>
-                        <div>1. Deploy an EdgeConnect instance in your network (or cloud VPC)</div>
-                        <div>2. AppEngine traffic routes through the EdgeConnect</div>
-                        <div>3. Whitelist the EdgeConnect's static IP on your host firewall</div>
-                      </div>
-                      <div style={{ marginTop: 8 }}>
-                        📖 <a href="https://docs.dynatrace.com/docs/ingest-from/edgeconnect" target="_blank" rel="noopener noreferrer" style={{ color: '#2e7d32', fontWeight: 600 }}>EdgeConnect Documentation →</a>
-                      </div>
-                    </div>
-
-                    {/* Alternative — Direct IP Approach */}
-                    <div style={{ marginTop: 12, padding: 14, borderRadius: 10, background: 'rgba(181,137,0,0.06)', border: '1px solid rgba(181,137,0,0.3)', fontSize: 12, lineHeight: 1.8 }}>
-                      <Flex alignItems="center" gap={8} style={{ marginBottom: 8 }}>
-                        <span style={{ fontSize: 16 }}>🔧</span>
-                        <Strong style={{ fontSize: 13 }}>Alternative: Direct IP Whitelisting</Strong>
-                        <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 4, background: 'rgba(181,137,0,0.15)', color: '#b58900', fontWeight: 700 }}>QUICK START</span>
-                      </Flex>
-                      <div>If you don't have EdgeConnect set up yet, you can temporarily whitelist the detected source IP. Note that this IP <Strong>may change</Strong> as Dynatrace scales its infrastructure.</div>
-
-                      <div style={{ marginTop: 8 }}>
-                        <Strong style={{ display: 'block', marginBottom: 4 }}>🌐 Host firewall / Security Group rules:</Strong>
-                        <div><Strong>Port:</Strong> <code style={{ fontSize: 11, background: 'rgba(0,0,0,0.08)', padding: '1px 5px', borderRadius: 3 }}>8080</code> (or your configured port)</div>
-                        <div><Strong>Protocol:</Strong> <code style={{ fontSize: 11, background: 'rgba(0,0,0,0.08)', padding: '1px 5px', borderRadius: 3 }}>TCP</code> · <Strong>Direction:</Strong> <code style={{ fontSize: 11, background: 'rgba(0,0,0,0.08)', padding: '1px 5px', borderRadius: 3 }}>Inbound</code></div>
-                      </div>
-
-                      <div style={{ marginTop: 6 }}><Strong>Source IP (who is connecting to your server):</Strong></div>
-                      {detectedCallerIp ? (
-                        <div style={{ marginTop: 4, padding: '10px 12px', background: 'rgba(0,180,0,0.08)', border: '1px solid rgba(0,180,0,0.3)', borderRadius: 6, fontFamily: 'monospace', fontSize: 12, lineHeight: 1.8 }}>
-                          ✅ <Strong>Detected source IP:</Strong> <code style={{ fontSize: 13, background: 'rgba(0,0,0,0.1)', padding: '2px 8px', borderRadius: 4, fontWeight: 700 }}>{detectedCallerIp}</code><br/>
-                          Whitelist <Strong>{detectedCallerIp}/32</Strong> for inbound TCP on port <Strong>{settingsForm.apiPort || '8080'}</Strong>.<br/>
-                          <span style={{ opacity: 0.7 }}>⚠️ This IP may change — use EdgeConnect for a stable solution.</span>
-                        </div>
-                      ) : (
-                        <div style={{ marginTop: 4, padding: '8px 10px', background: 'rgba(220,160,0,0.08)', border: '1px solid rgba(220,160,0,0.3)', borderRadius: 6, fontFamily: 'monospace', fontSize: 11, lineHeight: 1.8 }}>
-                          🔌 <Strong>Not yet detected.</Strong> Go to the <Strong>Config</Strong> tab and click <Strong>🔌 Test</Strong> to connect.<br/>
-                          Once successful, the server will report the exact IP that reached it.<br/>
-                          <span style={{ opacity: 0.7 }}>💡 If the test fails, temporarily open port {settingsForm.apiPort || '8080'} to <Strong>0.0.0.0/0</Strong>, test, then restrict to the detected IP.</span>
-                        </div>
-                      )}
-
-                      <div style={{ marginTop: 8 }}><Strong>⚠️ For AWS Security Groups:</Strong></div>
-                      <div style={{ marginTop: 4, padding: '8px 10px', background: 'rgba(0,0,0,0.06)', borderRadius: 6, fontFamily: 'monospace', fontSize: 11, lineHeight: 1.8 }}>
-                        Type: <Strong>Custom TCP</Strong><br/>
-                        Port range: <Strong>{settingsForm.apiPort || '8080'}</Strong><br/>
-                        Source: <Strong>{detectedCallerIp ? `${detectedCallerIp}/32` : '0.0.0.0/0 (open temporarily, then restrict)'}</Strong><br/>
-                        Description: <Strong>BizObs Forge - Dynatrace AppEngine</Strong>
-                      </div>
-                    </div>
-
-                    <div style={{ marginTop: 10, fontSize: 12, lineHeight: 1.6 }}>
-                      <Strong>💡 Tip:</Strong> Your BizObs server host must have a <Strong>public IP</Strong> (or be reachable via EdgeConnect). Enter that IP in the <Strong>Host</Strong> field on the Config tab.
-                    </div>
-                  </div>
-                </Flex>
-              </div>
-
-              {/* Quick Reference */}
-              <div style={{ padding: 14, borderRadius: 10, background: 'rgba(0,161,201,0.06)', border: `1px solid ${Colors.Theme.Primary['70']}` }}>
-                <Strong style={{ fontSize: 13, marginBottom: 8, display: 'block' }}>💡 Quick Reference</Strong>
-                <div style={{ fontSize: 12, lineHeight: 1.8 }}>
-                  <div><Strong>⚙️ Settings</Strong> — Configure server host, port, and protocol</div>
-                  <div><Strong>🖥️ Services</Strong> — View running & dormant services, stop/clear them</div>
-                  <div><Strong>💤 Dormant</Strong> — Stopped services remembered for quick restart (ports freed)</div>
-                  <div><Strong>📋 Templates</Strong> — Saved configurations in the sidebar for one-click loading</div>
-                  <div><Strong>🔄 Refresh</Strong> — Re-fetch service status from the server</div>
-                </div>
-              </div>
             </div>
             ) : (
             /* ── EdgeConnect Setup Tab ─── */
@@ -3222,17 +3043,7 @@ export const HomePage = () => {
                     <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: 12 }}>Manage active child services</div>
                   </div>
                 </Flex>
-                <Flex alignItems="center" gap={8}>
-                  {runningServices.length > 0 && (
-                    <IntentButton
-                      payload={getNotebookPayload(runningServices)}
-                      options={{ recommendedAppId: 'dynatrace.notebooks', recommendedIntentId: 'view-query' }}
-                    >
-                      📓 Open in Notebook
-                    </IntentButton>
-                  )}
-                  <button onClick={() => setShowServicesModal(false)} style={{ background: 'none', border: 'none', color: 'white', fontSize: 20, cursor: 'pointer', padding: 4 }}>✕</button>
-                </Flex>
+                <button onClick={() => setShowServicesModal(false)} style={{ background: 'none', border: 'none', color: 'white', fontSize: 20, cursor: 'pointer', padding: 4 }}>✕</button>
               </Flex>
             </div>
 
