@@ -37,6 +37,8 @@
 | **Board-Ready Storytelling** | Turn a technical monitoring conversation into a business value conversation in 3 minutes |
 | **Dynatrace-Native** | Built on OneAgent, BizEvents, Dynatrace Intelligence, EdgeConnect, and AppEngine — not bolted on, built in |
 
+> 📸 **Screenshot: Forge UI Home Page** — *The Template Library (left sidebar) with a healthcare journey loaded in the main panel. Shows the 4-tab workflow: Welcome → Company Details → Generate Prompts → Run Simulation.*
+
 ---
 
 > *A guide for business stakeholders, executives, and non-technical audiences. Lead with the why, show the value, tell the story.*
@@ -77,6 +79,8 @@ Every journey step carries business metadata: transaction value, customer lifeti
 
 > "The TriageAndAssessment service is failing at 80%. This is blocking 340 patient journeys per hour with an estimated impact of $127,000 in delayed care revenue."
 
+> 📸 **Screenshot: Revenue Impact Dashboard Tile** — *A Dynatrace dashboard single-value tile or table showing real-time revenue impact per journey step — e.g. "$127,000/hr blocked" with red/amber status indicators.*
+
 That's the conversation your CTO needs to have with your CFO.
 
 ### 2. Prove the Value of Observability to the Board
@@ -106,6 +110,8 @@ Industries already modeled:
 | **Media** | Bundle discovery, installation scheduling |
 | **Manufacturing** | Vehicle assembly, logistics, quality gates |
 
+> 📸 **Screenshot: Template Library** — *The left sidebar showing all 24 templates grouped by industry (Banking, Healthcare, Retail, etc.) with the search/filter bar at the top. One template is selected and its journey steps are visible in the main panel.*
+
 ### 4. Demonstrate AI-Powered Resilience
 
 The Forge includes four AI agents that show what the future of IT operations looks like:
@@ -133,6 +139,8 @@ Click a template. Services spin up. Auto-load begins generating traffic.
 
 > "Each step is now a real microservice, instrumented by Dynatrace, generating real business events with real revenue data. We're simulating 30–60 patient journeys per minute."
 
+> 📸 **Screenshot: Services Running** — *The Forge UI Services page showing 5–6 healthcare services (PatientRegistration, TriageAndAssessment, etc.) all with green status indicators, port numbers, and live request counters ticking up.*
+
 ### Act 2: "What Happens When Something Breaks" (3 minutes)
 
 Open the **Chaos Control** page. Select the TriageAndAssessment service. Inject `enable_errors` at 80%.
@@ -146,6 +154,8 @@ Switch to Dynatrace:
 
 > "Dynatrace didn't just detect an error. It correlated the root cause — our chaos injection event — with the business impact. It knows *which* journeys are affected and *what* the revenue impact is."
 
+> 📸 **Screenshot: Dynatrace Problems View** — *A Dynatrace problem card showing the TriageAndAssessment failure — with the CUSTOM_DEPLOYMENT chaos injection event correlated as root cause, affected services listed, and the business event drop visible on the timeline.*
+
 ### Act 3: "AI Fixes It Before You Even Know" (3 minutes)
 
 Open the **Fix-It Agent** page. Click "Run Diagnosis."
@@ -156,6 +166,8 @@ The agent proposes a fix: reset the feature flags. Click "Execute."
 
 > "In 4 seconds, the agent diagnosed the issue, proposed a fix, executed it, verified the service recovered, and logged the entire incident to organizational memory. The Librarian agent now knows: 'When TriageAndAssessment has high error rates caused by feature flag overrides, the fix is to reset the flags.' Next time, it'll be even faster."
 
+> 📸 **Screenshot: Fix-It Agent Page** — *The Forge UI Fix-It Agent page showing: (1) the diagnosis output identifying elevated error flags on TriageAndAssessment, (2) the proposed remediation action, and (3) the green "Fix Applied" confirmation with before/after error rates.*
+
 ### Act 4: "The Executive View" (2 minutes)
 
 Show the Dynatrace dashboard with:
@@ -165,6 +177,8 @@ Show the Dynatrace dashboard with:
 - Chaos injection markers on the timeline
 
 > "This is what your CTO sees. Not 'Service X is down.' Instead: 'Patient care journeys dropped 80% for 4 minutes, estimated revenue impact $8,400, automatically remediated by AI agent, root cause logged for future prevention.'"
+
+> 📸 **Screenshot: Executive Dashboard** — *The full Dynatrace dashboard showing: journey completion rates by company (bar/pie chart), revenue impact over time (line chart with dip during chaos), service health heatmap, and CUSTOM_DEPLOYMENT markers on the timeline showing chaos injection → remediation.*
 
 ---
 
@@ -178,6 +192,8 @@ Show the Dynatrace dashboard with:
 | Dashboard built by hand over weeks | One-click AI-generated executive dashboards |
 | No organizational memory | Every incident recorded, every fix learned |
 | Static test data | Dynamic, realistic traffic across 8 industries |
+
+> 📸 **Screenshot: Before vs. After** — *Two panels side by side: (Left) A traditional Dynatrace alerting view with a generic "Service X failure rate >5%" alert. (Right) The Forge executive dashboard showing "Patient Care revenue dropped $8,400 — auto-remediated in 4 seconds by AI agent." Same incident, different story.*
 
 ---
 

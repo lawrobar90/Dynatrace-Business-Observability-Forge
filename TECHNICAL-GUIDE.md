@@ -140,7 +140,7 @@ You need **2–3 credentials** — an API Token, an EdgeConnect OAuth Client, an
    - `openTelemetryTrace.ingest`
    - `entities.read`
 5. Click **Generate** → **copy the token** (you can't see it again)
-
+> 📸 **Screenshot: Access Tokens Page** — *Dynatrace Settings → Access Tokens → Generate new token dialog, with the 4 required scopes (events.ingest, metrics.ingest, openTelemetryTrace.ingest, entities.read) checked. Show the token name "BizObs Engine" in the name field.*
 > **You don't need to save this to a file.** `setup.sh` will ask for this token and create `.dt-credentials.json` automatically.
 
 ---
@@ -159,6 +159,8 @@ This client is used for the EdgeConnect tunnel. Depending on your tenant, it may
    - **OAuth client secret**: shown only once!
    - **OAuth client resource**: `urn:dtenvironment:YOUR_TENANT_ID`
 6. **Click "Download edgeConnect.yaml"** — this gives you a pre-filled YAML with all the values
+
+> 📸 **Screenshot: EdgeConnect Setup Page** — *Dynatrace Settings → General → External Requests showing the EdgeConnect entry named "bizobs-forge" with status indicator. Below it, the OAuth credentials panel showing client_id (dt0s10.* or dt0s02.*), the resource URN, and the "Download edgeConnect.yaml" button.*
 
 > **Important:** The client secret is only shown once. Copy it or download the YAML immediately.
 
@@ -245,6 +247,8 @@ Open the Forge app in Dynatrace (**Apps → Business Observability Forge**).
 
 Click **Save**, then click **Test**.
 
+> 📸 **Screenshot: Forge UI Settings → Config Tab** — *The Settings page Config tab showing: Protocol dropdown set to "HTTP", Host/IP field with a private IP like "172.31.37.182", Port field with "8080", and the Save + Test buttons. Ideally show a green "Connection successful" toast after testing.*
+
 > **If the test fails:**
 > - Make sure the Engine server is running (Step 5)
 > - Make sure EdgeConnect is running and connected (Step 3c)
@@ -275,7 +279,7 @@ This is a checklist that auto-detects your setup and lets you deploy Dynatrace c
 | **OneAgent Feature Flags** | Enables required OneAgent feature flags | Click **Deploy** |
 
 Work through from top to bottom. Each green checkmark means that step is configured correctly.
-
+> 📸 **Screenshot: Get Started Checklist** — *The Settings → Get Started tab showing all 10 checklist items with green checkmarks. Highlight the one-click "Deploy" buttons next to OpenPipeline Pipeline, Routing, Capture Rule, and Feature Flags steps. This is the "everything is ready" state.*
 **Once all steps are green, you're ready.** Go to the **Home** tab, pick a template from the Template Library, and click **Run** to launch your first journey simulation.
 
 ---
@@ -325,6 +329,8 @@ Work through from top to bottom. Each green checkmark means that step is configu
 | **Financial Services** | Account Opening, ISA Transfer, Support Request |
 
 Each template includes: company name, domain, industry type, journey steps with substeps, business metadata (revenue, category, KPIs), and customer profiles.
+
+> 📸 **Screenshot: Template Library Detail** — *The Home page with the Template Library sidebar open on the left, showing template cards grouped by industry. In the main panel, a selected template (e.g. Healthcare — Patient Care Journey) with its journey steps listed: PatientRegistration → TriageAndAssessment → ClinicalConsultation → Treatment → DischargeAndFollowUp.*
 
 ### Per-Service Chaos Injection
 
@@ -432,6 +438,8 @@ The Dynatrace AppEngine app has 5 pages:
 | **Chaos Control** | `/chaos` | Select a service, pick a chaos type, inject — with live active faults list |
 | **Fix-It Agent** | `/fixit` | Trigger automated diagnosis and remediation |
 | **Settings** | `/settings` | Configure server IP, API tokens, EdgeConnect credentials |
+
+> 📸 **Screenshot: Chaos Control Page** — *The Forge UI Chaos Control page showing: the service selector dropdown with a healthcare service selected, the chaos type picker (enable_errors, slow_responses, etc.), the intensity slider, and below it the "Active Faults" list showing one or two injected faults with their target service, type, and a "Revert" button.*
 
 ### Home Page Flow
 
