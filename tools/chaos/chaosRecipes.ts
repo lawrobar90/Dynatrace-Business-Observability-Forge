@@ -18,8 +18,9 @@ export type ChaosType =
   | 'enable_errors'
   | 'increase_error_rate'
   | 'slow_responses'
-  | 'disable_circuit_breaker'
-  | 'disable_cache'
+  | 'cascading_latency'
+  | 'dependency_timeout'
+  | 'jitter'
   | 'target_company'
   | 'custom_flag';
 
@@ -184,70 +185,162 @@ const increaseErrorRateRecipe: ChaosRecipe = {
 
 const slowResponsesRecipe: ChaosRecipe = {
   type: 'slow_responses',
-  name: 'Enable Slow Responses',
-  description: 'Turns on slowResponsesEnabled to simulate latency in journey steps.',
+  name: 'Slow Response Injection',
+  description: 'Adds a REAL delay (in milliseconds) to every request processed by the targeted service. Intensity 1-10 maps to 1s-10s. The delay happens inside the HTTP handler so it shows as increased span duration in Dynatrace traces.',
   async inject(params) {
     const id = nextChaosId();
+    const intensity = params.intensity ?? 5;
+    const delayMs = intensity * 1000; // 1-10 → 1000-10000ms
     const targetService = params.target && params.target !== 'default' ? params.target : undefined;
-    log.info(`👹 Enabling slow responses`, { id, targetService: targetService || 'all' });
-    const before = await callRemediationAPI('slowResponsesEnabled', true, `Nemesis: enabling slow responses${targetService ? ` on ${targetService}` : ''}`, targetService);
+    log.info(`👹 Injecting slow responses: +${delayMs}ms`, { id, targetService: targetService || 'all' });
+
+    // Set response_time_ms via the feature flag API (System B) — child services poll this
+    if (targetService) {
+      await callFeatureFlagAPI('POST', '/api/feature_flag', {
+        flags: { response_time_ms: delayMs },
+        targetService,
+        triggeredBy: 'nemesis-agent'
+      });
+    } else {
+      await callFeatureFlagAPI('POST', '/api/feature_flag', {
+        flags: { response_time_ms: delayMs },
+        triggeredBy: 'nemesis-agent'
+      });
+    }
+
     return {
-      chaosId: id, type: 'slow_responses', target: targetService || 'slowResponsesEnabled',
+      chaosId: id, type: 'slow_responses', target: targetService || 'all',
       injectedAt: new Date().toISOString(),
-      revertInfo: { previousValue: (before as any).previousValue ?? false, targetService },
+      revertInfo: { delayMs, targetService },
       status: 'active',
     };
   },
   async revert(ctx) {
     const targetService = ctx.revertInfo.targetService as string | undefined;
-    await callRemediationAPI('slowResponsesEnabled', ctx.revertInfo.previousValue ?? false, 'Nemesis revert: slow responses', targetService);
+    if (targetService) {
+      await callFeatureFlagAPI('POST', '/api/feature_flag', {
+        flags: { response_time_ms: 0 },
+        targetService,
+        triggeredBy: 'nemesis-agent'
+      });
+    } else {
+      await callFeatureFlagAPI('POST', '/api/feature_flag', {
+        flags: { response_time_ms: 0 },
+        triggeredBy: 'nemesis-agent'
+      });
+    }
     log.info(`Reverted slow responses`, { chaosId: ctx.chaosId });
   },
 };
 
-const disableCircuitBreakerRecipe: ChaosRecipe = {
-  type: 'disable_circuit_breaker',
-  name: 'Disable Circuit Breaker',
-  description: 'Turns off the circuit breaker so errors cascade without protection.',
+const cascadingLatencyRecipe: ChaosRecipe = {
+  type: 'cascading_latency',
+  name: 'Cascading Latency',
+  description: 'Each service in the journey chain adds progressively MORE latency. Step 1 gets base delay, step 2 gets 2×, step 3 gets 3×, etc. Creates a classic waterfall degradation pattern visible in Dynatrace distributed traces. Intensity 1-10 maps to 500ms-5000ms base delay.',
   async inject(params) {
     const id = nextChaosId();
+    const intensity = params.intensity ?? 5;
+    const baseMs = intensity * 500; // 1-10 → 500-5000ms base
     const targetService = params.target && params.target !== 'default' ? params.target : undefined;
-    log.info(`👹 Disabling circuit breaker`, { id, targetService: targetService || 'all' });
-    const before = await callRemediationAPI('circuitBreakerEnabled', false, `Nemesis: disabling circuit breaker${targetService ? ` on ${targetService}` : ''}`, targetService);
+    log.info(`👹 Injecting cascading latency: base=${baseMs}ms (multiplied by step index)`, { id, targetService: targetService || 'all' });
+
+    const apiBody: Record<string, unknown> = {
+      flags: { cascading_latency_ms: baseMs },
+      triggeredBy: 'nemesis-agent'
+    };
+    if (targetService) apiBody.targetService = targetService;
+    await callFeatureFlagAPI('POST', '/api/feature_flag', apiBody);
+
     return {
-      chaosId: id, type: 'disable_circuit_breaker', target: targetService || 'circuitBreakerEnabled',
+      chaosId: id, type: 'cascading_latency', target: targetService || 'all',
       injectedAt: new Date().toISOString(),
-      revertInfo: { previousValue: (before as any).previousValue ?? false, targetService },
+      revertInfo: { baseMs, targetService },
       status: 'active',
     };
   },
   async revert(ctx) {
     const targetService = ctx.revertInfo.targetService as string | undefined;
-    await callRemediationAPI('circuitBreakerEnabled', ctx.revertInfo.previousValue ?? false, 'Nemesis revert: circuit breaker', targetService);
-    log.info(`Reverted circuit breaker`, { chaosId: ctx.chaosId });
+    const apiBody: Record<string, unknown> = {
+      flags: { cascading_latency_ms: 0 },
+      triggeredBy: 'nemesis-agent'
+    };
+    if (targetService) apiBody.targetService = targetService;
+    await callFeatureFlagAPI('POST', '/api/feature_flag', apiBody);
+    log.info(`Reverted cascading latency`, { chaosId: ctx.chaosId });
   },
 };
 
-const disableCacheRecipe: ChaosRecipe = {
-  type: 'disable_cache',
-  name: 'Disable Cache',
-  description: 'Turns off caching to increase load and response times.',
+const dependencyTimeoutRecipe: ChaosRecipe = {
+  type: 'dependency_timeout',
+  name: 'Dependency Timeout',
+  description: 'Forces the targeted service to make a real outbound HTTP call to a non-routable address that hangs and times out. This creates a visible failed external dependency call in the Dynatrace trace waterfall. Intensity 1-10 maps to 2s-20s timeout.',
   async inject(params) {
     const id = nextChaosId();
+    const intensity = params.intensity ?? 5;
+    const timeoutMs = intensity * 2000; // 1-10 → 2000-20000ms
     const targetService = params.target && params.target !== 'default' ? params.target : undefined;
-    log.info(`👹 Disabling cache`, { id, targetService: targetService || 'all' });
-    const before = await callRemediationAPI('cacheEnabled', false, `Nemesis: disabling cache${targetService ? ` on ${targetService}` : ''}`, targetService);
+    log.info(`👹 Injecting dependency timeout: ${timeoutMs}ms`, { id, targetService: targetService || 'all' });
+
+    const apiBody: Record<string, unknown> = {
+      flags: { dependency_timeout_ms: timeoutMs },
+      triggeredBy: 'nemesis-agent'
+    };
+    if (targetService) apiBody.targetService = targetService;
+    await callFeatureFlagAPI('POST', '/api/feature_flag', apiBody);
+
     return {
-      chaosId: id, type: 'disable_cache', target: targetService || 'cacheEnabled',
+      chaosId: id, type: 'dependency_timeout', target: targetService || 'all',
       injectedAt: new Date().toISOString(),
-      revertInfo: { previousValue: (before as any).previousValue ?? true, targetService },
+      revertInfo: { timeoutMs, targetService },
       status: 'active',
     };
   },
   async revert(ctx) {
     const targetService = ctx.revertInfo.targetService as string | undefined;
-    await callRemediationAPI('cacheEnabled', ctx.revertInfo.previousValue ?? true, 'Nemesis revert: cache', targetService);
-    log.info(`Reverted cache disable`, { chaosId: ctx.chaosId });
+    const apiBody: Record<string, unknown> = {
+      flags: { dependency_timeout_ms: 0 },
+      triggeredBy: 'nemesis-agent'
+    };
+    if (targetService) apiBody.targetService = targetService;
+    await callFeatureFlagAPI('POST', '/api/feature_flag', apiBody);
+    log.info(`Reverted dependency timeout`, { chaosId: ctx.chaosId });
+  },
+};
+
+const jitterRecipe: ChaosRecipe = {
+  type: 'jitter',
+  name: 'Intermittent Jitter',
+  description: 'A percentage of requests get hit with a random 2-10 second delay, creating the classic "long tail latency" pattern. p50 stays normal but p95/p99 spike. Intensity 1-10 maps to 10%-100% of requests affected.',
+  async inject(params) {
+    const id = nextChaosId();
+    const intensity = params.intensity ?? 3;
+    const pct = Math.min(intensity * 10, 100); // 1-10 → 10%-100%
+    const targetService = params.target && params.target !== 'default' ? params.target : undefined;
+    log.info(`👹 Injecting jitter: ${pct}% of requests get 2-10s spike`, { id, targetService: targetService || 'all' });
+
+    const apiBody: Record<string, unknown> = {
+      flags: { jitter_percentage: pct },
+      triggeredBy: 'nemesis-agent'
+    };
+    if (targetService) apiBody.targetService = targetService;
+    await callFeatureFlagAPI('POST', '/api/feature_flag', apiBody);
+
+    return {
+      chaosId: id, type: 'jitter', target: targetService || 'all',
+      injectedAt: new Date().toISOString(),
+      revertInfo: { pct, targetService },
+      status: 'active',
+    };
+  },
+  async revert(ctx) {
+    const targetService = ctx.revertInfo.targetService as string | undefined;
+    const apiBody: Record<string, unknown> = {
+      flags: { jitter_percentage: 0 },
+      triggeredBy: 'nemesis-agent'
+    };
+    if (targetService) apiBody.targetService = targetService;
+    await callFeatureFlagAPI('POST', '/api/feature_flag', apiBody);
+    log.info(`Reverted jitter`, { chaosId: ctx.chaosId });
   },
 };
 
@@ -337,8 +430,9 @@ export const chaosRecipes: Record<ChaosType, ChaosRecipe> = {
   enable_errors: enableErrorsRecipe,
   increase_error_rate: increaseErrorRateRecipe,
   slow_responses: slowResponsesRecipe,
-  disable_circuit_breaker: disableCircuitBreakerRecipe,
-  disable_cache: disableCacheRecipe,
+  cascading_latency: cascadingLatencyRecipe,
+  dependency_timeout: dependencyTimeoutRecipe,
+  jitter: jitterRecipe,
   target_company: targetCompanyRecipe,
   custom_flag: customFlagRecipe,
 };

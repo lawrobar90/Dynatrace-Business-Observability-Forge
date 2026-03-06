@@ -297,8 +297,9 @@ async function aiSelectChaos(
     'enable_errors',
     'increase_error_rate',
     'slow_responses',
-    'disable_circuit_breaker',
-    'disable_cache',
+    'cascading_latency',
+    'dependency_timeout',
+    'jitter',
   ];
 
   const systemState = `
@@ -358,8 +359,9 @@ function randomSelectChaos(services: ServiceInfo[]): ChaosDecision {
     'enable_errors',
     'increase_error_rate',
     'slow_responses',
-    'disable_circuit_breaker',
-    'disable_cache',
+    'cascading_latency',
+    'dependency_timeout',
+    'jitter',
   ];
 
   const service = services[Math.floor(Math.random() * services.length)];
