@@ -140,7 +140,8 @@ You need **2–3 credentials** — an API Token, an EdgeConnect OAuth Client, an
    - `openTelemetryTrace.ingest`
    - `entities.read`
 5. Click **Generate** → **copy the token** (you can't see it again)
-> 📸 **Screenshot: Access Tokens Page** — *Dynatrace Settings → Access Tokens → Generate new token dialog, with the 4 required scopes (events.ingest, metrics.ingest, openTelemetryTrace.ingest, entities.read) checked. Show the token name "BizObs Engine" in the name field.*
+> 📸 **Screenshot: Access Tokens Page** 
+![Step 2 – Access Tokens](Screenshots/Step2-AccessTokens.png)
 > **You don't need to save this to a file.** `setup.sh` will ask for this token and create `.dt-credentials.json` automatically.
 
 ---
