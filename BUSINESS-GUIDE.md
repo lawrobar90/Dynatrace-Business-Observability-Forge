@@ -4,7 +4,7 @@
 
 > Model any customer journey. See the revenue impact when things break. Watch AI fix it in seconds — all inside Dynatrace.
 
-![Step 2 – Access Tokens](Screenshots/Business-Observability-Forge.png)
+![Step 2 – Access Tokens](Screenshots/Business_Observability_Forge.png)
 
 ---
 
