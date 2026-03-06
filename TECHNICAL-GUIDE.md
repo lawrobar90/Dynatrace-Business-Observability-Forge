@@ -242,7 +242,7 @@ Open the Forge app in Dynatrace (**Apps → Business Observability Forge**).
 | Field | Value | Example |
 |-------|-------|---------|
 | Protocol | `HTTP` | (not HTTPS — the server runs plain HTTP) |
-| Host / IP Address | Your **private IP** | `172.31.37.182` |
+| Host / IP Address | Your **private IP** | `***.**.**.**` |
 | Port | `8080` | |
 
 Click **Save**, then click **Test**.
