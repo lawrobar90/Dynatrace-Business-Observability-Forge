@@ -14,4 +14,4 @@ environmentGroups:
         auth:
           token:
             type: environment
-            value: DT_API_TOKEN
+            name: DT_API_TOKEN
